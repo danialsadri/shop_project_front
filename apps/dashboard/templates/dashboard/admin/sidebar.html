@@ -1,0 +1,86 @@
+{% load static %}
+
+<div class="navbar-expand-lg navbar-light">
+    <div id="sidebarNav" class="collapse navbar-collapse navbar-vertical">
+        <div class="card flex-grow-1 mb-5">
+            <div class="card-body">
+                <div class="d-none d-lg-block text-center mb-5">
+                    <div class="avatar avatar-xxl avatar-circle mb-3">
+                        <img class="avatar-img" src="{{ request.user.user_profile.image.url }}" alt="Image Description"/>
+                    </div>
+                    <h4 class="card-title mb-0">{{ request.user.user_profile.get_fullname }}</h4>
+                    <p class="card-text small">{{ request.user.email }}</p>
+                </div>
+                <span class="text-cap">حساب</span>
+                <ul class="nav nav-sm nav-tabs nav-vertical mb-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard:admin:home' %}">
+                            <i class="bi-person-badge nav-icon"></i>داشبورد
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard:admin:security-edit' %}">
+                            <i class="bi-shield-shaded nav-icon"></i> امنیت
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard:admin:profile-edit' %}">
+                            <i class="bi-sliders nav-icon"></i> تنظیمات پروفایل
+                        </a>
+                    </li>
+                </ul>
+                <span class="text-cap">فروشگاه</span>
+                <ul class="nav nav-sm nav-tabs nav-vertical mb-4">
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'dashboard:admin:product-list' %}">
+                            <i class="bi-shop-window nav-icon"></i> محصولات
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'dashboard:admin:order-list' %}">
+                            <i class="bi-receipt-cutoff nav-icon"></i> سفارشات
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'dashboard:admin:coupon-list' %}">
+                            <i class="bi-ticket-perforated nav-icon"></i> کد تخفیف
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'dashboard:admin:review-list' %}">
+                            <i class="bi-chat-square-text nav-icon"></i>نظرات
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'dashboard:admin:contact-list' %}">
+                            <i class="bi-envelope nav-icon"></i> تیکت ها
+                        </a>
+                    </li>
+                </ul>
+                <span class="text-cap">کاربران</span>
+                <ul class="nav nav-sm nav-tabs nav-vertical mb-4">
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'dashboard:admin:user-list' %}">
+                            <i class="bi-person nav-icon"></i> لیست کاربران
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'dashboard:admin:newsletter-list' %}">
+                            <i class="bi-newspaper nav-icon"></i> خبرنامه
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-lg-none">
+                    <div class="dropdown-divider"></div>
+                    <ul class="nav nav-sm nav-tabs nav-vertical">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi-box-arrow-right nav-icon"></i> خروج
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
