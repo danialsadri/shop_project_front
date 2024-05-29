@@ -18,7 +18,7 @@ source venv/bin/activate
 
 #### 4.install packages
 ```sh
-pip install =-r requirements/development.txt 
+pip install -r requirements/development.txt 
 ```
 
 #### 5.migrate
