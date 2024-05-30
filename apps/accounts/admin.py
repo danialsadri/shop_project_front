@@ -7,7 +7,7 @@ from .models import Profile, User
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     model = User
-    list_display = ["id", "email", "is_superuser", "is_active", "is_verified"]
+    list_display = ["email", "is_superuser", "is_active", "is_verified"]
     list_filter = ["email", "is_superuser", "is_active", "is_verified"]
     searching_fields = ["email"]
     ordering = ["email"]
@@ -64,8 +64,10 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(Profile)
 class CustomProfileAdmin(admin.ModelAdmin):
-    list_display = ["id", "user", "first_name", "last_name", "phone_number"]
-    searching_fields = ["user", "first_name", "last_name", "phone_number"]
+    list_display = ["user", "first_name", "last_name", "phone_number"]
+    list_filter = ['created_date']
+    search_fields = ["first_name", "last_name", "phone_number"]
+    raw_id_fields = ["user"]
 
 
 @admin.register(Session)
