@@ -16,6 +16,7 @@ LOCAL_APPS = [
     'apps.order.apps.OrderConfig',
     'apps.payment.apps.PaymentConfig',
     'apps.review.apps.ReviewConfig',
+    'apps.utils.apps.UtilsConfig',
 ]
 
 THIRD_PARTY_APPS = [
