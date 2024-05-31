@@ -1,37 +1,21 @@
 ## installing
 
-#### 1.clone repository
+#### clone repository
 ```sh
 git clone git@github.com:danialsadri/shop_project_front.git
 ```
 
-#### 2.change directory
+#### change directory
 ```sh
 cd shop_project_front
 ```
 
-#### 3.setup virtualenv
+#### config docker compose for development
 ```sh
-python3 -m venv venv
-source venv/bin/activate
+docker compose -f docker-compose-development.yml up -d --build
 ```
 
-#### 4.install packages
+#### config docker compose for production 
 ```sh
-pip install -r requirements/development.txt 
-```
-
-#### 5.migrate
-```sh
-python manage.py migrate
-```
-
-#### 6.create superuser
-```sh
-python manage.py createsuperuser
-```
-
-#### 7.start server
-```sh
-python manage.py runserver
+docker compose -f docker-compose-production.yml up -d --build
 ```
