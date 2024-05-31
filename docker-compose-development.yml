@@ -17,5 +17,19 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - envs/.env.project
+      - envs/development/.env.backend
+    depends_on:
+      - database
     restart: always
+
+  database:
+    container_name: database
+    image: postgres:16.0
+    env_file:
+      - envs/development/.env.db
+    volumes:
+      - database:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  database:
