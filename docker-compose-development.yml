@@ -26,6 +26,8 @@ services:
   database:
     container_name: database
     image: postgres:16.0
+    ports:
+      - "5432:5432"
     env_file:
       - envs/development/.env.db
     volumes:
@@ -35,9 +37,67 @@ services:
   redis:
     container_name: redis
     image: redis:7.2.4
-    expose:
-      - "6379"
+    ports:
+      - "6379:6379"
     command: sh -c "redis-server --save 60 1 --loglevel warning"
+    restart: always
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: always
+
+  worker:
+    container_name: worker
+    image: worker
+    build:
+      context: .
+      dockerfile: docker/local.Dockerfile
+    command: sh -c "celery -A config worker -l INFO"
+    volumes:
+      - ./:/app
+    env_file:
+      - envs/development/.env.backend
+    depends_on:
+      - rabbitmq
+      - backend
+    restart: always
+
+  worker_beat:
+    container_name: worker_beat
+    image: worker_beat
+    build:
+      context: .
+      dockerfile: docker/local.Dockerfile
+    command: sh -c "celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    volumes:
+      - ./:/app
+    env_file:
+      - envs/development/.env.backend
+    depends_on:
+      - rabbitmq
+      - backend
+    restart: always
+
+  worker_flower:
+    container_name: worker_flower
+    image: mher/flower:2.0
+    ports:
+      - "5555:5555"
+    environment:
+      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672/
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "5050:80"
     restart: always
 
 volumes:

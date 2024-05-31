@@ -21,6 +21,7 @@ LOCAL_APPS = [
 
 THIRD_PARTY_APPS = [
     'rest_framework',
+    'django_celery_beat',
 ]
 
 INSTALLED_APPS = [
@@ -165,3 +166,6 @@ MERCHANT_ID = config("MERCHANT_ID", cast=str)
 SANDBOX_MODE = config("SANDBOX_MODE", cast=bool)
 
 SITE_ID = 1
+
+CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
+CELERY_RESULT_BACKEND = 'rpc://'

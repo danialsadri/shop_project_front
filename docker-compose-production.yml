@@ -28,6 +28,8 @@ services:
   database:
     container_name: database
     image: postgres:16.0
+    expose:
+      - "5432"
     env_file:
       - envs/production/.env.db
     volumes:
@@ -40,6 +42,45 @@ services:
     expose:
       - "6379"
     command: sh -c "redis-server --save 60 1 --loglevel warning"
+    restart: always
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:management
+    expose:
+      - "5672"
+    restart: always
+
+  worker:
+    container_name: worker
+    image: worker
+    build:
+      context: .
+      dockerfile: docker/production.Dockerfile
+    command: sh -c "celery -A config worker -l INFO"
+    volumes:
+      - ./:/app
+    env_file:
+      - envs/production/.env.backend
+    depends_on:
+      - rabbitmq
+      - backend
+    restart: always
+
+  worker_beat:
+    container_name: worker_beat
+    image: worker_beat
+    build:
+      context: .
+      dockerfile: docker/production.Dockerfile
+    command: sh -c "celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    volumes:
+      - ./:/app
+    env_file:
+      - envs/production/.env.backend
+    depends_on:
+      - rabbitmq
+      - backend
     restart: always
 
   nginx:
