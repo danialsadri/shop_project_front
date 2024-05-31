@@ -22,6 +22,7 @@ services:
       - envs/production/.env.backend
     depends_on:
       - database
+      - redis
     restart: always
 
   database:
@@ -31,6 +32,14 @@ services:
       - envs/production/.env.db
     volumes:
       - database:/var/lib/postgresql/data
+    restart: always
+
+  redis:
+    container_name: redis
+    image: redis:7.2.4
+    expose:
+      - "6379"
+    command: sh -c "redis-server --save 60 1 --loglevel warning"
     restart: always
 
   nginx:
