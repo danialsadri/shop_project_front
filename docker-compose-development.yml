@@ -46,7 +46,7 @@ services:
     container_name: rabbitmq
     image: rabbitmq:management
     ports:
-      - "5672:5672"
+      - "5673:5672"
       - "15672:15672"
     restart: always
 
@@ -89,15 +89,16 @@ services:
       - "5555:5555"
     environment:
       - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672/
+    restart: always
 
   pgadmin:
-    container_name: pgadmin4_container
+    container_name: pgadmin
     image: dpage/pgadmin4
+    ports:
+      - "5050:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: "admin"
-    ports:
-      - "5050:80"
     restart: always
 
 volumes:
