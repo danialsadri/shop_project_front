@@ -104,5 +104,19 @@ services:
       - database
     restart: always
 
+  smtp4dev:
+    container_name: smtp4dev
+    image: rnwood/smtp4dev:v3
+    volumes:
+      - smtp4dev_data:/smtp4dev
+    ports:
+      - '5000:80'
+      - '25:25'
+      - '143:143'
+    environment:
+      - ServerOptions__HostName=smtp4dev
+    restart: always
+
 volumes:
   database:
+  smtp4dev_data:
