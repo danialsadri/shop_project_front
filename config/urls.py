@@ -5,6 +5,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/', include('apps.core.api.v1.urls')),
     path('', include('apps.website.urls', namespace='website')),
     path('dashboard/', include('apps.dashboard.urls', namespace='dashboard')),
     path('accounts/', include('apps.accounts.urls', namespace='accounts')),
@@ -20,7 +21,7 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.SHOW_DEBUGGER_TOOLBAR:
-    urlpatterns += [path('__debug__/', include('debug_toolbar.urls')), ]
+    urlpatterns += [path('__debug__/', include('debug_toolbar.urls'))]
 
 admin.sites.AdminSite.site_header = 'پنل مدیریت'
 admin.sites.AdminSite.site_title = 'پنل مدیریت'

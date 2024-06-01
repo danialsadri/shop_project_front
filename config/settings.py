@@ -17,6 +17,7 @@ LOCAL_APPS = [
     'apps.payment.apps.PaymentConfig',
     'apps.review.apps.ReviewConfig',
     'apps.utils.apps.UtilsConfig',
+    'apps.core.apps.CoreConfig',
 ]
 
 THIRD_PARTY_APPS = [
