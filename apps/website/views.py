@@ -1,12 +1,14 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.views import View
+from apps.site_setting.models import SliderModel
 from .forms import ContactUsForm, NewsLetterForm
 
 
 class IndexView(View):
     def get(self, request):
-        return render(request, 'website/index.html')
+        sliders = SliderModel.objects.filter(active=True)
+        return render(request, 'website/index.html', {'sliders': sliders})
 
 
 class AboutUsView(View):

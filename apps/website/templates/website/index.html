@@ -6,28 +6,28 @@
     <div class="position-relative content-space-t-2 content-space-t-lg-3">
         <div class="js-swiper-shop-classic-hero swiper bg-light">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
+                {% for slider in sliders %}
+                	<div class="swiper-slide">
                     <div class="container content-space-t-2 content-space-b-3">
                         <div class="row align-items-lg-center">
                             <div class="col-lg-5 order-lg-2 mb-7 mb-lg-0">
                                 <div class="mb-6">
-                                    <h1 class="display-4 mb-4">درپوش طرح اصلی جلو</h1>
-                                    <p>فرانت علاوه بر اینکه در نوآوری‌های فنی بازی را تغییر می‌دهد، برخی از پرفروش‌ترین
-                                        کلاه‌ها را در
-                                        قفسه خود دارد.</p>
+                                    <h1 class="display-4 mb-4">{{ slider.title }}</h1>
+                                    <p>{{ slider.description }}</p>
                                 </div>
                                 <div class="d-flex gap-2">
-                                    <a class="btn btn-primary rounded-pill" href="#">نمایش جزئیات محصول</a>
+                                    <a class="btn btn-primary rounded-pill" href="{{ slider.url }}">نمایش جزئیات محصول</a>
                                 </div>
                             </div>
                             <div class="col-lg-6 order-lg-1">
                                 <div class="w-75 mx-auto">
-                                    <img class="img-fluid" src="{% static '/img/mockups/img5.png' %}" alt="Image Description">
+                                    <img class="img-fluid" src="{{ slider.image.url }}" alt="Image Description">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
             <div class="js-swiper-shop-classic-hero-button-prev swiper-button-prev"></div>
             <div class="js-swiper-shop-classic-hero-button-next swiper-button-next"></div>
