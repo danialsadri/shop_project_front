@@ -18,11 +18,13 @@ LOCAL_APPS = [
     'apps.review.apps.ReviewConfig',
     'apps.utils.apps.UtilsConfig',
     'apps.core.apps.CoreConfig',
+    'apps.site_setting.apps.SiteSettingConfig',
 ]
 
 THIRD_PARTY_APPS = [
     'rest_framework',
     'django_celery_beat',
+    'django_render_partial',
 ]
 
 INSTALLED_APPS = [

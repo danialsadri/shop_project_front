@@ -1,3 +1,4 @@
+{% load render_partial %}
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -10,9 +11,9 @@
 </head>
 <body>
 
-{% include 'includes/header.html' %}
+{% render_partial 'apps.utils.views.header_component' %}
 <main id="content" role="main">{% block content %}{% endblock %}</main>
-{% include 'includes/footer.html' %}
+{% render_partial 'apps.utils.views.footer_component' %}
 
 
 {% include 'includes/footer_references.html' %}

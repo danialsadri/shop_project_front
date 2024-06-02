@@ -10,4 +10,5 @@ urlpatterns = [
     path('shop/', include('apps.shop.api.v1.urls')),
     path('utils/', include('apps.utils.api.v1.urls')),
     path('website/', include('apps.website.api.v1.urls')),
+    path('site-settings/', include('apps.site_setting.api.v1.urls')),
 ]
