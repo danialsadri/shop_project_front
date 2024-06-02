@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DeleteView
 from apps.dashboard.permissions import *
-from apps.website.models import NewsLetter
+from apps.website.models import NewsLetterModel
 
 
 class NewsletterListView(LoginRequiredMixin, HasAdminAccessPermission, ListView):
@@ -18,7 +18,7 @@ class NewsletterListView(LoginRequiredMixin, HasAdminAccessPermission, ListView)
         return self.request.GET.get('paginate_by', self.paginate_by)
 
     def get_queryset(self):
-        queryset = NewsLetter.objects.all().order_by("-created_date")
+        queryset = NewsLetterModel.objects.all().order_by("-created_date")
         search_query = self.request.GET.get('q', None)
         ordering_query = self.request.GET.get('ordering', None)
         if search_query:
@@ -45,4 +45,4 @@ class NewsletterDeleteView(LoginRequiredMixin, HasAdminAccessPermission, Success
     success_message = "عضو مورد نظر با موفقیت حذف شد"
 
     def get_queryset(self):
-        return NewsLetter.objects.all()
+        return NewsLetterModel.objects.all()

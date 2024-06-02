@@ -20,7 +20,7 @@ class ContactModel(BaseModel):
         return self.full_name
 
 
-class NewsLetter(BaseModel):
+class NewsLetterModel(BaseModel):
     email = models.EmailField(verbose_name='ایمیل')
 
     class Meta:

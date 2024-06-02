@@ -9,7 +9,7 @@ class ContactModelAdmin(admin.ModelAdmin):
     search_fields = ["email"]
 
 
-@admin.register(NewsLetter)
+@admin.register(NewsLetterModel)
 class NewsLetterAdmin(admin.ModelAdmin):
     list_display = ["email"]
     list_filter = ["created_date"]

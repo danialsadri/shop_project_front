@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.views import View
-from django.views.generic import CreateView
 from .forms import ContactUsForm, NewsLetterForm
 
 
@@ -34,15 +33,12 @@ class ContactUsView(View):
         return render(request, self.template_name, {'form': form})
 
 
-class NewsletterView(CreateView):
-    http_method_names = ['post']
-    form_class = NewsLetterForm
-    success_url = '/'
-
-    def form_valid(self, form):
-        messages.success(self.request, 'از ثبت نام شما ممنونم، اخبار جدید رو براتون ارسال می کنم 😊👍')
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
+class NewsletterView(View):
+    def post(self, request):
+        form = NewsLetterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(self.request, 'از ثبت نام شما ممنونم، اخبار جدید رو براتون ارسال می کنم 😊👍')
+            return redirect('website:index')
         messages.error(self.request, 'مشکلی در ارسال فرم شما وجود داشت که می دونم برا چی بود!! چون ربات هستید!')
         return redirect('website:index')
