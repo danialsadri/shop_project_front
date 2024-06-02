@@ -1,5 +1,29 @@
 {% load static %}
 
+<div class="bg-light">
+    <div class="container content-space-2">
+        <div class="w-md-75 w-lg-50 text-center mx-md-auto">
+            <div class="row justify-content-lg-between">
+                <div class="mb-5">
+                    <h2>اخبار جدید را دریافت کنید</h2>
+                </div>
+                <form method="post" action="{% url 'website:newsletter' %}">
+                    {% csrf_token %}
+                    <div class="input-card input-card-pill input-card-sm border mb-3">
+                        <div class="input-card-form">
+                            <input class="form-control border-0 me-1" type="text" placeholder="نام"
+                                   name="first_name" hidden="">
+                            <label for="subscribeForm" class="form-label visually-hidden">ایمیل را وارد کنید</label>
+                            <input type="email" class="form-control form-control-lg" name="email"
+                                   placeholder="ایمیل خود را وارد نمایید" aria-label="ایمیل خود را وارد کنید">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill">ثبت نام</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <footer class="border-top">
     <div class="container">
         <div class="row justify-content-lg-between content-space-t-2 content-space-b-lg-2">

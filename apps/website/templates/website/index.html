@@ -7,26 +7,26 @@
         <div class="js-swiper-shop-classic-hero swiper bg-light">
             <div class="swiper-wrapper">
                 {% for slider in sliders %}
-                	<div class="swiper-slide">
-                    <div class="container content-space-t-2 content-space-b-3">
-                        <div class="row align-items-lg-center">
-                            <div class="col-lg-5 order-lg-2 mb-7 mb-lg-0">
-                                <div class="mb-6">
-                                    <h1 class="display-4 mb-4">{{ slider.title }}</h1>
-                                    <p>{{ slider.description }}</p>
+                    <div class="swiper-slide">
+                        <div class="container content-space-t-2 content-space-b-3">
+                            <div class="row align-items-lg-center">
+                                <div class="col-lg-5 order-lg-2 mb-7 mb-lg-0">
+                                    <div class="mb-6">
+                                        <h1 class="display-4 mb-4">{{ slider.title }}</h1>
+                                        <p>{{ slider.description }}</p>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <a class="btn btn-primary rounded-pill" href="{{ slider.url }}">نمایش جزئیات محصول</a>
+                                    </div>
                                 </div>
-                                <div class="d-flex gap-2">
-                                    <a class="btn btn-primary rounded-pill" href="{{ slider.url }}">نمایش جزئیات محصول</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 order-lg-1">
-                                <div class="w-75 mx-auto">
-                                    <img class="img-fluid" src="{{ slider.image.url }}" alt="Image Description">
+                                <div class="col-lg-6 order-lg-1">
+                                    <div class="w-75 mx-auto">
+                                        <img class="img-fluid" src="{{ slider.image.url }}" alt="Image Description">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
             <div class="js-swiper-shop-classic-hero-button-prev swiper-button-prev"></div>
@@ -148,30 +148,6 @@
                         <a class="btn btn-outline-primary btn-sm btn-transition rounded-pill px-6" href="#">مشاهده
                             همه</a>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="bg-light">
-        <div class="container content-space-2">
-            <div class="w-md-75 w-lg-50 text-center mx-md-auto">
-                <div class="row justify-content-lg-between">
-                    <div class="mb-5">
-                        <h2>اخبار جدید را دریافت کنید</h2>
-                    </div>
-                    <form method="post" action="{% url 'website:newsletter' %}">
-                        {% csrf_token %}
-                        <div class="input-card input-card-pill input-card-sm border mb-3">
-                            <div class="input-card-form">
-                                <input class="form-control border-0 me-1" type="text" placeholder="نام"
-                                       name="first_name" hidden="">
-                                <label for="subscribeForm" class="form-label visually-hidden">ایمیل را وارد کنید</label>
-                                <input type="email" class="form-control form-control-lg" name="email"
-                                       placeholder="ایمیل خود را وارد نمایید" aria-label="ایمیل خود را وارد کنید">
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-lg rounded-pill">ثبت نام</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
