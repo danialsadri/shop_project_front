@@ -1,37 +1,37 @@
 from django.contrib import messages
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
+from django.views import View
 from django.views.generic import CreateView
-from django.views.generic import TemplateView
-from .forms import ContactForm, NewsLetterForm
+from .forms import ContactUsForm, NewsLetterForm
 
 
-class IndexView(TemplateView):
-    template_name = "website/index.html"
+class IndexView(View):
+    def get(self, request):
+        return render(request, 'website/index.html')
 
 
-class ContactView(TemplateView):
-    template_name = "website/contact.html"
+class AboutView(View):
+    def get(self, request):
+        return render(request, 'website/about.html')
 
 
-class AboutView(TemplateView):
-    template_name = "website/about.html"
+class ContactUsView(View):
+    form_class = ContactUsForm
+    template_name = 'website/contact_us.html'
 
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
 
-class SendContactView(CreateView):
-    http_method_names = ['post']
-    form_class = ContactForm
-
-    def form_valid(self, form):
-        form.save()
-        messages.success(self.request, 'تیکت شما با موفقیت ثبت شد و در اسرع وقت با شما تماس حاصل خواهد شد')
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
-        messages.error(self.request, 'مشکلی در ارسال فرم شما پیش آمد لطفا ورودی ها رو بررسی کنین و مجدد ارسال نمایید')
-        return redirect(self.request.META.get('HTTP_REFERER'))
-
-    def get_success_url(self):
-        return self.request.META.get('HTTP_REFERER')
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'تیکت شما با موفقیت ثبت شد و در اسرع وقت با شما تماس حاصل خواهد شد')
+            return redirect('website:contact_us')
+        else:
+            messages.error(request, 'مشکلی در ارسال فرم شما پیش آمد لطفا ورودی ها رو بررسی کنین و مجدد ارسال نمایید')
+        return render(request, self.template_name, {'form': form})
 
 
 class NewsletterView(CreateView):

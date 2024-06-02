@@ -91,54 +91,44 @@
                         <h2>فرم تماس با پشتیبانی</h2>
                         <p>سوال یا نظرات خود را مطرح کنین</p>
                     </div>
-                    <form action="{% url 'website:submit-ticket' %}" method="post">
+                    <form action="{% url 'website:contact_us' %}" method="post" novalidate>
                         {% csrf_token %}
                         <div class="row gx-3">
                             <div class="col-sm-12">
                                 <div class="mb-3">
-                                    <label class="form-label" for="formFirstName">نام و نام خانوادگی</label>
-                                    <input type="text" class="form-control form-control-lg" name="full_name"
-                                           id="formFirstName" placeholder="نام و نام خانوادگی" required>
+                                    {{ form.full_name.label_tag }}
+                                    {{ form.full_name }}
                                 </div>
                             </div>
                         </div>
                         <div class="row gx-3">
                             <div class="col-sm-6">
-                                <!-- Form -->
                                 <div class="mb-3">
-                                    <label class="form-label" for="formEmail">آدرس ایمیل</label>
-                                    <input type="email" class="form-control form-control-lg " name="email" dir="ltr"
-                                           id="formEmail" placeholder="email@site.com" aria-label="email@site.com" required>
+                                    {{ form.email.label_tag }}
+                                    {{ form.email }}
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="formPhoneNumber">شماره همراه </label>
-                                    <input type="text" class="form-control form-control-lg " name="phone_number" dir="ltr"
-                                           id="formPhoneNumber" placeholder="+9891200000" required>
+                                    {{ form.phone_number.label_tag }}
+                                    {{ form.phone_number }}
                                 </div>
                             </div>
                         </div>
                         <div class="row gx-3">
                             <div class="col-sm-12">
                                 <div class="mb-3">
-                                    <label class="form-label" for="formSubject">موضوع</label>
-                                    <input type="text" class="form-control form-control-lg" name="subject"
-                                           id="formSubject" placeholder="موضوع مورد نظر را وارد نمایید" aria-label="First name" required>
+                                    {{ form.subject.label_tag }}
+                                    {{ form.subject }}
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="formDescription">توضیحات</label>
-                            <textarea class="form-control form-control-lg" name="content"
-                                      id="formDescription" placeholder="توضیحات خود را وارد نمایید"
-                                      aria-label="Tell us about your ..." rows="4" required></textarea>
+                            {{ form.content.label_tag }}
+                            {{ form.content }}
                         </div>
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary btn-lg">ارسال درخواست</button>
-                        </div>
-                        <div class="text-center">
-                            <p class="form-text">تیکت ها در اسرع وقت پاسخ داده خواهند شد</p>
                         </div>
                     </form>
                 </div>
