@@ -9,7 +9,7 @@ class IndexView(View):
         return render(request, 'website/index.html')
 
 
-class AboutView(View):
+class AboutUsView(View):
     def get(self, request):
         return render(request, 'website/about.html')
 
