@@ -1,0 +1,64 @@
+{% load static %}
+
+<footer class="border-top">
+    <div class="container">
+        <div class="row justify-content-lg-between content-space-t-2 content-space-b-lg-2">
+            <div class="col-lg-3 mb-5">
+                <div class="d-flex align-items-start flex-column h-100">
+                    <a class="w-100 mb-3 mb-lg-auto" href="{% url 'website:index' %}" aria-label="Front">
+                        <img class="brand" src="{% static 'svg/logos/logo.svg' %}" alt="Logo">
+                    </a>
+                </div>
+            </div>
+            {% for footer_link_box in footer_link_boxes %}
+                <div class="col-6 col-md-4 col-lg-3 ms-lg-auto mb-5 mb-lg-0">
+                    <h5>{{ footer_link_box.title }}</h5>
+                    {% for link in footer_link_box.footer_links.all %}
+                        <ul class="list-unstyled list-py-1">
+                            <li><a class="link-sm text-secondary" href="{{ link.url }}">{{ link.title }}</a></li>
+                        </ul>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</footer>
+<!-- Go To -->
+<a class="js-go-to go-to position-fixed" href="javascript:;" style="visibility: hidden;" data-hs-go-to-options='{
+       "offsetTop": 700,
+       "position": {
+         "init": {
+           "right": "2rem"
+         },
+         "show": {
+           "bottom": "2rem"
+         },
+         "hide": {
+           "bottom": "-2rem"
+         }
+       }
+     }'>
+    <i class="bi-chevron-up"></i>
+</a>
+<!-- Offcanvas Search -->
+<div class="offcanvas offcanvas-top offcanvas-navbar-search bg-light" tabindex="-1" id="offcanvasNavbarSearch">
+    <div class="offcanvas-body">
+        <div class="container">
+            <div class="w-lg-75 mx-lg-auto">
+                <div class="d-flex justify-content-end mb-3">
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="mb-7">
+                    <form action="{% url 'shop:product-grid' %}">
+                        <div class="input-card">
+                            <div class="input-card-form">
+                                <input type="text" class="form-control form-control-lg" placeholder="جستجو محصولات" name="q" aria-label="جستجو محصولات">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg">جستجو کردن</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

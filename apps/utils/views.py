@@ -4,7 +4,7 @@ from apps.site_setting.models import FooterLinkBoxModel
 
 def header_component(request):
     context = {}
-    return render(request, 'includes/header.html', context)
+    return render(request, 'utils/header.html', context)
 
 
 def footer_component(request):
@@ -12,4 +12,4 @@ def footer_component(request):
     context = {
         'footer_link_boxes': footer_link_boxes,
     }
-    return render(request, 'includes/footer.html', context)
+    return render(request, 'utils/footer.html', context)
