@@ -14,50 +14,25 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (
             "Authentication",
-            {
-                "fields": ("email", "password"),
-            },
+            {"fields": ["email", "password"]},
         ),
         (
             "permissions",
-            {
-                "fields": (
-                    "is_staff",
-                    "is_active",
-                    "is_superuser",
-                    "is_verified",
-                ),
-            },
+            {"fields": ["is_staff", "is_active", "is_superuser", "is_verified"]},
         ),
         (
             "group permissions",
-            {
-                "fields": ("groups", "user_permissions", "type"),
-            },
+            {"fields": ["groups", "user_permissions", "type"]},
         ),
         (
             "important date",
-            {
-                "fields": ("last_login",),
-            },
+            {"fields": ["last_login"]},
         ),
     )
     add_fieldsets = (
         (
             None,
-            {
-                "classes": ("wide",),
-                "fields": (
-                    "email",
-                    "password1",
-                    "password2",
-                    "is_staff",
-                    "is_active",
-                    "is_superuser",
-                    "is_verified",
-                    "type"
-                ),
-            },
+            {"fields": ["email", "password1", "password2", "is_staff", "is_active", "is_superuser", "is_verified", "type"]},
         ),
     )
 
