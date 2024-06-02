@@ -44,7 +44,7 @@
                         </button>
                     </div>
                     <div id="navbarVerticalNavMenu" class="collapse navbar-collapse">
-                        <form action="." class="w-100">
+                        <form action="" class="w-100">
 
                             <div class="border-bottom pb-4 mb-4">
                                 <h5>جستو جوی کالا</h5>
@@ -196,7 +196,7 @@
                                 </div>
                             </div>
                         </div>
-                    {% empty %}
+                        {% empty %}
                         <div class="row text-center w-100 py-5">
                             <p class="text-center">هیچ کالایی برای نمایش وجود ندارد</p>
                         </div>
@@ -246,7 +246,6 @@
             <div class="w-md-75 w-lg-50 text-center mx-md-auto">
                 <div class="row justify-content-lg-between">
                     <div class="mb-5">
-                        <span class="text-cap">ثبت نام</span>
                         <h2>اخبار جدید را دریافت کنید</h2>
                     </div>
                     <form method="post" action="{% url 'website:newsletter' %}">
@@ -262,31 +261,7 @@
                             <button type="submit" class="btn btn-primary btn-lg rounded-pill">ثبت نام</button>
                         </div>
                     </form>
-                    <p class="small">می توانید در هر زمانی اشتراک خود را لغو کنید <a href="#">سیاست حفظ حریم خصوصی</a> ما را
-                        بخوانید</p>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="container content-space-2">
-        <div class="row">
-            <div class="col text-center py-3">
-                <img class="avatar avatar-lg avatar-4x3" src="{% static '/svg/brands/hollister-dark.svg' %}" alt="Logo">
-            </div>
-            <div class="col text-center py-3">
-                <img class="avatar avatar-lg avatar-4x3" src="{% static '/svg/brands/levis-dark.svg' %}" alt="Logo">
-            </div>
-            <div class="col text-center py-3">
-                <img class="avatar avatar-lg avatar-4x3" src="{% static '/svg/brands/new-balance-dark.svg' %}" alt="Logo">
-            </div>
-            <div class="col text-center py-3">
-                <img class="avatar avatar-lg avatar-4x3" src="{% static '/svg/brands/puma-dark.svg' %}" alt="Logo">
-            </div>
-            <div class="col text-center py-3">
-                <img class="avatar avatar-lg avatar-4x3" src="{% static '/svg/brands/nike-dark.svg' %}" alt="Logo">
-            </div>
-            <div class="col text-center py-3">
-                <img class="avatar avatar-lg avatar-4x3" src="{% static '/svg/brands/tnf-dark.svg' %}" alt="Logo">
             </div>
         </div>
     </div>
