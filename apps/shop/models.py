@@ -4,11 +4,6 @@ from django.db import models
 from apps.utils.models import BaseModel
 
 
-class ProductStatusType(models.IntegerChoices):
-    publish = 1, "نمایش"
-    draft = 2, "عدم نمایش"
-
-
 class ProductCategoryModel(BaseModel):
     title = models.CharField(max_length=255, verbose_name='عنوان')
     slug = models.SlugField(allow_unicode=True, unique=True, verbose_name='اسلاگ')
@@ -21,6 +16,11 @@ class ProductCategoryModel(BaseModel):
 
     def __str__(self):
         return self.title
+
+
+class ProductStatusType(models.IntegerChoices):
+    publish = 1, "نمایش"
+    draft = 2, "عدم نمایش"
 
 
 class ProductModel(BaseModel):

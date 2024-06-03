@@ -6,7 +6,7 @@ from apps.review.models import ReviewModel, ReviewStatusType
 from .models import ProductModel, ProductStatusType, ProductCategoryModel, WishlistProductModel
 
 
-class ShopProductGridView(ListView):
+class ProductGridView(ListView):
     template_name = "shop/product-grid.html"
     paginate_by = 9
 
@@ -40,7 +40,7 @@ class ShopProductGridView(ListView):
         return context
 
 
-class ShopProductDetailView(DetailView):
+class ProductDetailView(DetailView):
     template_name = "shop/product-detail.html"
     queryset = ProductModel.objects.filter(status=ProductStatusType.publish.value)
 
