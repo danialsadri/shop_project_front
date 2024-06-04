@@ -45,7 +45,6 @@
                     </div>
                     <div id="navbarVerticalNavMenu" class="collapse navbar-collapse">
                         <form action="" class="w-100">
-
                             <div class="border-bottom pb-4 mb-4">
                                 <h5>جستو جوی کالا</h5>
                                 <div class="d-grid gap-2">
@@ -59,7 +58,6 @@
                             <div class="border-bottom pb-4 mb-4">
                                 <h5>قیمت</h5>
                                 <div class="d-grid gap-2">
-
                                     <div class="form-group">
                                         <label class="form-label d-flex" for="min-price-filter">کمترین قیمت</label>
                                         <input class="form-control" type="number" name="min_price"
@@ -159,20 +157,16 @@
                                     <div class="mb-2">
                                         {% for category in object.category.all %}
                                             <a class="link-sm link-secondary" href="#"> {{ category.title }} </a>
-                                            {% if not forloop.last %}
-                                                ,
-                                            {% endif %}
+                                            {% if not forloop.last %}, {% endif %}
                                         {% endfor %}
                                     </div>
                                     <h4 class="card-title">
-                                        <a class="text-dark"
-                                           href="{% url 'shop:product-detail' slug=object.slug %}">{{ object.title }}</a>
+                                        <a class="text-dark" href="{% url 'shop:product-detail' slug=object.slug %}">{{ object.title }}</a>
                                     </h4>
                                     {% if object.is_discounted %}
                                         <p class="card-text text-dark fs-4">
                                             <span class="formatted-price">{{ object.get_price }}</span>
-                                            <span
-                                                    class="text-body me-1 fs-6 formatted-price text-decoration-line-through">{{ object.price }}</span>
+                                            <span class="text-body me-1 fs-6 formatted-price text-decoration-line-through">{{ object.price }}</span>
                                         </p>
                                     {% else %}
                                         <p class="card-text text-dark fs-4 formatted-price"> {{ object.price }}</p>
@@ -181,8 +175,8 @@
                                 <div class="card-footer pt-0">
                                     <a class="d-inline-flex align-items-center mb-3" href="#">
                                         {% for i in "12345" %}
-                                            {% if i|add:0 <= object.avg_rate %} <span><i
-                                                    class="bi bi-star-fill star-rate"></i></span>
+                                            {% if i|add:0 <= object.avg_rate %}
+                                                <span><i class="bi bi-star-fill star-rate"></i></span>
                                             {% else %}
                                                 <span><i class="bi bi-star star-rate"></i></span>
                                             {% endif %}
@@ -190,8 +184,7 @@
                                         <span class="ms-1">{{ object.avg_rate }}/5</span>
                                     </a>
                                     <button type="button" class="btn btn-outline-primary btn-sm btn-transition rounded-pill"
-                                            onclick="addToCart('{{ object.id }}')">افزودن به سبد
-                                        خرید
+                                            onclick="addToCart('{{ object.id }}')">افزودن به سبد خرید
                                     </button>
                                 </div>
                             </div>
@@ -207,18 +200,16 @@
                         <ul class="pagination justify-content-center">
                             {% if page_obj.has_previous %}
                                 <li class="page-item">
-                                    <button class="page-link" onclick="changePage(`{{ page_obj.previous_page_number }}`)"
-                                            aria-label="Previous">
-                            <span aria-hidden="true">
-                                <i class="bi-chevron-double-right small"></i>
-                            </span>
+                                    <button class="page-link" onclick="changePage(`{{ page_obj.previous_page_number }}`)" aria-label="Previous">
+                                        <span aria-hidden="true"><i class="bi-chevron-double-right small"></i></span>
                                     </button>
                                 </li>
                             {% endif %}
-                            {{ page_obj.page_range }}
                             {% for i in page_obj.paginator.page_range %}
                                 {% if page_obj.number == i %}
-                                    <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+                                    <li class="page-item active">
+                                        <a class="page-link">{{ i }}</a>
+                                    </li>
                                 {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
                                     <li class="page-item">
                                         <button class="page-link" onclick="changePage(`{{ i }}`)">{{ i }}</button>
@@ -227,11 +218,8 @@
                             {% endfor %}
                             {% if page_obj.has_next %}
                                 <li class="page-item">
-                                    <button class="page-link" onclick="changePage(`{{ page_obj.next_page_number }}`)"
-                                            aria-label="Previous">
-                                <span aria-hidden="true">
-                                    <i class="bi-chevron-double-left small"></i>
-                                </span>
+                                    <button class="page-link" onclick="changePage(`{{ page_obj.next_page_number }}`)" aria-label="Previous">
+                                        <span aria-hidden="true"><i class="bi-chevron-double-left small"></i></span>
                                     </button>
                                 </li>
                             {% endif %}
