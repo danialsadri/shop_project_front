@@ -40,8 +40,8 @@ class ProductGridView(ListView):
 
 
 class ProductDetailView(DetailView):
-    template_name = "shop/product-detail.html"
     queryset = ProductModel.objects.filter(status=ProductStatusType.publish.value)
+    template_name = "shop/product-detail.html"
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
