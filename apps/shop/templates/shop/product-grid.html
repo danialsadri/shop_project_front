@@ -30,28 +30,23 @@
                 <div class="navbar-expand-lg mb-5">
                     <div class="d-grid">
                         <button type="button" class="navbar-toggler btn btn-white mb-3" data-bs-toggle="collapse"
-                                data-bs-target="#navbarVerticalNavMenu" aria-label="Toggle navigation" aria-expanded="false"
+                                data-bs-target="#navbarVerticalNavMenu" aria-label="Toggle navigation" aria-expanded="false" 
                                 aria-controls="navbarVerticalNavMenu">
                         <span class="d-flex justify-content-between align-items-center">
                             <span class="text-dark">فیلتر کنید</span>
-                            <span class="navbar-toggler-default">
-                                <i class="bi-list"></i>
-                            </span>
-                            <span class="navbar-toggler-toggled">
-                                <i class="bi-x"></i>
-                            </span>
+                            <span class="navbar-toggler-default"><i class="bi-list"></i></span>
+                            <span class="navbar-toggler-toggled"><i class="bi-x"></i></span>
                         </span>
                         </button>
                     </div>
                     <div id="navbarVerticalNavMenu" class="collapse navbar-collapse">
-                        <form action="" class="w-100">
+                        <form action="" method="get" class="w-100">
                             <div class="border-bottom pb-4 mb-4">
                                 <h5>جستو جوی کالا</h5>
                                 <div class="d-grid gap-2">
                                     <div class="form-group">
                                         <label class="form-label d-flex" for="search-query-filter">جستو جو</label>
-                                        <input class="form-control" placeholder="واژه مورد نظر را وارد نمایید" type="text"
-                                               name="q" id="search-query-filter">
+                                        <input class="form-control" placeholder="واژه مورد نظر را وارد نمایید" type="text" name="q" id="search-query-filter">
                                     </div>
                                 </div>
                             </div>
@@ -60,13 +55,11 @@
                                 <div class="d-grid gap-2">
                                     <div class="form-group">
                                         <label class="form-label d-flex" for="min-price-filter">کمترین قیمت</label>
-                                        <input class="form-control" type="number" name="min_price"
-                                               placeholder="کمترین قیمت مد نظر" id="min-price-filter">
+                                        <input class="form-control" type="number" name="min_price" placeholder="کمترین قیمت مد نظر" id="min-price-filter">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label d-flex" for="max-price-filter">بیشترین قیمت</label>
-                                        <input class="form-control" type="number" name="max_price"
-                                               placeholder="بیشترین قیمت مد نظر" id="max-price-filter">
+                                        <input class="form-control" type="number" name="max_price" placeholder="بیشترین قیمت مد نظر" id="max-price-filter">
                                     </div>
                                 </div>
                             </div>
@@ -85,11 +78,8 @@
                                 </div>
                             </div>
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-outline-primary btn-transition mb-3">اعمال
-                                    فیلتر
-                                </button>
-                                <a href="{% url 'shop:product-grid' %}"
-                                   class="btn btn-outline-danger btn-transition mb-3">حذف فیلتر ها</a>
+                                <button type="submit" class="btn btn-outline-primary btn-transition mb-3">اعمال فیلتر</button>
+                                <a href="{% url 'shop:product-grid' %}" class="btn btn-outline-danger btn-transition mb-3">حذف فیلتر ها</a>
                             </div>
                         </form>
                     </div>
@@ -189,7 +179,7 @@
                                 </div>
                             </div>
                         </div>
-                        {% empty %}
+                    {% empty %}
                         <div class="row text-center w-100 py-5">
                             <p class="text-center">هیچ کالایی برای نمایش وجود ندارد</p>
                         </div>
