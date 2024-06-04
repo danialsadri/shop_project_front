@@ -4,7 +4,7 @@ from django.core.files import File
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 from faker import Faker
-from apps.accounts.models import User, UserType
+from apps.accounts.models import User
 from apps.shop.models import ProductModel, ProductCategoryModel, ProductStatusType
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -15,7 +15,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         fake = Faker(locale="fa_IR")
-        user = User.objects.get(type=UserType.admin.value)
+        user = User.objects.get(id=1)
         # List of images
         image_list = [
             "./images/img1.jpg",
@@ -32,7 +32,7 @@ class Command(BaseCommand):
         for _ in range(10):  # Generate 10 fake products
             user = user
             num_categories = random.randint(1, 4)
-            selected_categoreis = random.sample(list(categories), num_categories)
+            selected_categories = random.sample(list(categories), num_categories)
             title = ' '.join([fake.word() for _ in range(1, 3)])
             slug = slugify(title, allow_unicode=True)
             selected_image = random.choice(image_list)
@@ -48,5 +48,5 @@ class Command(BaseCommand):
                 description=description, brief_description=brief_description,
                 stock=stock, status=status, price=price, discount_percent=discount_percent,
             )
-            product.category.set(selected_categoreis)
+            product.category.set(selected_categories)
         self.stdout.write(self.style.SUCCESS('Successfully generated 10 fake products'))

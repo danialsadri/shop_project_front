@@ -14,8 +14,7 @@ class ProductGridView(ListView):
         return self.request.GET.get('page_size', self.paginate_by)
 
     def get_queryset(self):
-        queryset = ProductModel.objects.filter(
-            status=ProductStatusType.publish.value)
+        queryset = ProductModel.objects.filter(status=ProductStatusType.publish.value)
         if search_q := self.request.GET.get("q"):
             queryset = queryset.filter(title__icontains=search_q)
         if category_id := self.request.GET.get("category_id"):
@@ -44,6 +43,11 @@ class ProductDetailView(DetailView):
     template_name = "shop/product-detail.html"
     queryset = ProductModel.objects.filter(status=ProductStatusType.publish.value)
 
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        obj.product_images.prefetch_related()
+        return obj
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         product = self.get_object()
@@ -58,11 +62,6 @@ class ProductDetailView(DetailView):
         else:
             context["reviews_avg"] = {f"rate_{rate}": 0 for rate in range(1, 6)}
         return context
-
-    def get_object(self, queryset=None):
-        obj = super().get_object(queryset)
-        obj.product_images.prefetch_related()
-        return obj
 
 
 class AddOrRemoveWishlistView(LoginRequiredMixin, View):
