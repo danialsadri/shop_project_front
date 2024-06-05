@@ -30,7 +30,7 @@
                 <div class="navbar-expand-lg mb-5">
                     <div class="d-grid">
                         <button type="button" class="navbar-toggler btn btn-white mb-3" data-bs-toggle="collapse"
-                                data-bs-target="#navbarVerticalNavMenu" aria-label="Toggle navigation" aria-expanded="false" 
+                                data-bs-target="#navbarVerticalNavMenu" aria-label="Toggle navigation" aria-expanded="false"
                                 aria-controls="navbarVerticalNavMenu">
                         <span class="d-flex justify-content-between align-items-center">
                             <span class="text-dark">فیلتر کنید</span>
@@ -67,8 +67,7 @@
                                 <h5>دسته بندی</h5>
                                 <div class="d-grid gap-2">
                                     <div class="mb-2 mb-sm-0 me-sm-2">
-                                        <select class="form-select form-select-sm" name="category_id"
-                                                id="category-id-filter">
+                                        <select class="form-select form-select-sm" name="category_id" id="category-id-filter">
                                             <option value="" selected>انتخاب دسته بندی</option>
                                             {% for category in categories %}
                                                 <option value="{{ category.id }}">{{ category.title }}</option>
@@ -108,21 +107,9 @@
                                     <option value="10">10</option>
                                     <option value="20">20</option>
                                     <option value="30">30</option>
-                                    <option value="50">50</option>
+                                    <option value="40">40</option>
                                 </select>
                             </div>
-                            <ul class="nav nav-segment">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="{% url 'shop:product-grid' %}">
-                                        <i class="bi-grid-fill"></i>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        <i class="bi-list"></i>
-                                    </a>
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>
