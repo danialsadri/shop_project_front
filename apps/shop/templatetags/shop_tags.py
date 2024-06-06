@@ -17,7 +17,7 @@ def show_latest_products(context):
 def show_similar_products(context, product):
     request = context.get("request")
     product_categories = product.category.all()
-    similar_prodcuts = ProductModel.objects.filter(
+    similar_products = ProductModel.objects.filter(
         status=ProductStatusType.publish.value, category__in=product_categories).distinct().exclude(id=product.id).order_by("-created_date")[:4]
     wishlist_items = WishlistProductModel.objects.filter(user=request.user).values_list("product__id", flat=True) if request.user.is_authenticated else []
-    return {"similar_prodcuts": similar_prodcuts, "request": request, "wishlist_items": wishlist_items}
+    return {"similar_products": similar_products, "request": request, "wishlist_items": wishlist_items}
