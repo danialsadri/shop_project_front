@@ -20,7 +20,7 @@
                         <a class="nav-link  {% if request.resolver_match.view_name  == 'website:index' %} active {% endif %}" href="{% url 'website:index' %}">صفحه اصلی</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.view_name  == 'shop:product-grid' %} active {% endif %}" href="{% url 'shop:product-grid' %}">محصولات</a>
+                        <a class="nav-link {% if request.resolver_match.view_name  == 'shop:product-list' %} active {% endif %}" href="{% url 'shop:product-list' %}">محصولات</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.view_name  == 'website:contact_us' %} active {% endif %}" href="{% url 'website:contact_us' %}">ارتباط با ما</a>

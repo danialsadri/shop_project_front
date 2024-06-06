@@ -6,8 +6,8 @@ from apps.review.models import ReviewModel, ReviewStatusType
 from .models import ProductModel, ProductStatusType, ProductCategoryModel, WishlistProductModel
 
 
-class ProductGridView(ListView):
-    template_name = "shop/product-grid.html"
+class ProductListView(ListView):
+    template_name = "shop/product-list.html"
     paginate_by = 9
 
     def get_paginate_by(self, queryset):
