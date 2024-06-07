@@ -55,16 +55,16 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.view_name  == 'shop:product-grid' %} active {% endif %}"
-                           href="{% url 'shop:product-grid' %}">لیست محصولات</a>
+                        <a class="nav-link {% if request.resolver_match.view_name  == 'shop:product-list' %} active {% endif %}"
+                           href="{% url 'shop:product-list' %}">لیست محصولات</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.view_name  == 'website:about' %} active {% endif %}"
-                           href="{% url 'website:about' %}">درباره ما</a>
+                        <a class="nav-link {% if request.resolver_match.view_name  == 'website:about_us' %} active {% endif %}"
+                           href="{% url 'website:about_us' %}">درباره ما</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.resolver_match.view_name  == 'website:contact' %} active {% endif %}"
-                           href="{% url 'website:contact' %}">ارتباط با ما</a>
+                        <a class="nav-link {% if request.resolver_match.view_name  == 'website:contact_us' %} active {% endif %}"
+                           href="{% url 'website:contact_us' %}">ارتباط با ما</a>
                     </li>
 
 
@@ -357,7 +357,7 @@
 
                 <div class="mb-7">
                     <!-- Form -->
-                    <form action="{% url 'shop:product-grid' %}">
+                    <form action="{% url 'shop:product-list' %}">
                         <!-- Input Card -->
                         <div class="input-card">
                             <div class="input-card-form">
