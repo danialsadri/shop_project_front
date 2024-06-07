@@ -1,8 +1,23 @@
-from typing import Any
 from django.http import JsonResponse
-from django.views.generic import View, TemplateView
+from django.shortcuts import render
+from django.views.generic import View
 from apps.shop.models import ProductModel, ProductStatusType
 from .cart import CartSession
+
+
+class CartSummaryView(View):
+
+    def get(self, request):
+        cart = CartSession(request.session)
+        cart_items = cart.get_cart_items()
+        total_quantity = cart.get_total_quantity()
+        total_payment_price = cart.get_total_payment_amount()
+        context = {
+            'cart_items': cart_items,
+            'total_quantity': total_quantity,
+            'total_payment_price': total_payment_price,
+        }
+        return render(request, 'cart/cart-summary.html', context)
 
 
 class SessionAddProductView(View):
@@ -40,16 +55,3 @@ class SessionUpdateProductQuantityView(View):
         if request.user.is_authenticated:
             cart.merge_session_cart_in_db(request.user)
         return JsonResponse({"cart": cart.get_cart_dict(), "total_quantity": cart.get_total_quantity()})
-
-
-class CartSummaryView(TemplateView):
-    template_name = "cart/cart-summary.html"
-
-    def get_context_data(self, **kwargs: Any):
-        context = super().get_context_data(**kwargs)
-        cart = CartSession(self.request.session)
-        cart_items = cart.get_cart_items()
-        context["cart_items"] = cart_items
-        context["total_quantity"] = cart.get_total_quantity()
-        context["total_payment_price"] = cart.get_total_payment_amount()
-        return context
