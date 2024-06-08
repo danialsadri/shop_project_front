@@ -1,8 +1,10 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.views import View
+from django.views.decorators.cache import cache_page
 from apps.site_setting.models import SliderModel
 from .forms import ContactUsForm, NewsLetterForm
+from django.utils.decorators import method_decorator
 
 
 class IndexView(View):
@@ -12,8 +14,9 @@ class IndexView(View):
 
 
 class AboutUsView(View):
+    @method_decorator(cache_page(60 * 2))
     def get(self, request):
-        return render(request, 'website/about.html')
+        return render(request, 'website/about_us.html')
 
 
 class ContactUsView(View):
