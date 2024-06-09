@@ -30,7 +30,6 @@
                 <img class="navbar-brand-logo" src="{% static 'svg/logos/logo.svg' %}" alt="Logo">
             </a>
             <!-- End Default Logo -->
-
             <!-- Toggler -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
@@ -43,7 +42,6 @@
                     </span>
             </button>
             <!-- End Toggler -->
-
             <!-- Collapse -->
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
@@ -51,8 +49,6 @@
                         <a class="nav-link  {% if request.resolver_match.view_name  == 'website:index' %} active {% endif %}"
                            href="{% url 'website:index' %}">صفحه اصلی</a>
                     </li>
-
-
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.view_name  == 'shop:product-list' %} active {% endif %}"
                            href="{% url 'shop:product-list' %}">لیست محصولات</a>
@@ -65,24 +61,13 @@
                         <a class="nav-link {% if request.resolver_match.view_name  == 'website:contact_us' %} active {% endif %}"
                            href="{% url 'website:contact_us' %}">ارتباط با ما</a>
                     </li>
-
-
                     <li class="nav-item">
                         <!-- Search -->
                         <button class="btn btn-ghost-secondary btn-icon" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasNavbarSearch" aria-controls="offcanvasNavbarSearch">
                             <i class="bi-search"></i>
                         </button>
-
                         <!-- End Search -->
-
-                        <!-- Shopping Cart -->
-                        <!-- <button type="button" class="btn btn-ghost-secondary btn-icon" type="button"
-                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarShoppingCart"
-                            aria-controls="offcanvasNavbarShoppingCart">
-                            <i class="bi-basket"></i>
-                            <span class="cart-item-count ">3</span>
-                        </button> -->
                         <a href="{% url 'cart:cart-summary' %}" class="btn btn-ghost-secondary btn-icon">
                             <i class="bi-basket"></i>
                             <span class="cart-item-count"
@@ -90,7 +75,6 @@
                         </a>
                         <!-- End Shopping Cart -->
                         {% if request.user.is_authenticated %}
-
                             <button class="btn btn-ghost-secondary btn-icon" id="dropdownMenuLink"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="avatar avatar-sm avatar-circle">
@@ -98,12 +82,10 @@
                                          alt="Image Description">
                                 </span>
                             </button>
-
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" href="{% url 'dashboard:home' %}">پروفایل</a>
                                 <a class="dropdown-item" href="{% url 'accounts:logout' %}">خروج</a>
                             </div>
-
                         {% else %}
                             <a class="btn btn-primary btn-transition" href="{% url 'accounts:login' %}">ورود</a>
                         {% endif %}
@@ -128,15 +110,11 @@
                     <div class="d-none d-lg-block">
                         <h1 class="h2 text-white">داشبورد</h1>
                     </div>
-
                     <!-- Breadcrumb -->
-                    {% block breadcrumb %}
-
-                    {% endblock %}
+                    {% block breadcrumb %}{% endblock %}
                     <!-- End Breadcrumb -->
                 </div>
                 <!-- End Col -->
-
                 <div class="col-auto">
                     <div class="d-none d-lg-block">
                         <a class="btn btn-soft-light btn-sm" href="{% url 'accounts:logout' %}">خروج</a>
@@ -167,11 +145,8 @@
                 {% include 'dashboard/admin/sidebar.html' %}
             </div>
             <!-- End Col -->
-
             <div class="col-lg-9">
-                {% block content %}
-                {% endblock %}
-
+                {% block content %}{% endblock %}
             </div>
             <!-- End Col -->
         </div>
@@ -179,7 +154,6 @@
     </div>
     <!-- End Content Section -->
 </main>
-
 <!-- ========== FOOTER ========== -->
 <footer class="border-top">
     <div class="container">
@@ -191,14 +165,11 @@
                         <img class="brand" src="{% static 'svg/logos/logo.svg' %}" alt="Logo">
                     </a>
                     <!-- End Logo -->
-
                     <p class="text-muted small mb-0">&copy; Maryam Farajian 2023 Front RTL</p>
                 </div>
             </div>
-
             <div class="col-6 col-md-4 col-lg-3 ms-lg-auto mb-5 mb-lg-0">
                 <h5>حساب</h5>
-
                 <!-- List -->
                 <ul class="list-unstyled list-py-1">
                     <li><a class="link-sm text-secondary" href="#">سفارش دادن</a></li>
@@ -209,7 +180,6 @@
                 <!-- End List -->
             </div>
             <!-- End Col -->
-
             <div class="col-6 col-md-4 col-lg-3 mb-5 mb-lg-0">
                 <h5>شرکت</h5>
 
@@ -222,10 +192,8 @@
                 <!-- End List -->
             </div>
             <!-- End Col -->
-
             <div class="col-md-4 col-lg-2 mb-5 mb-lg-0">
                 <h5 class="mb-3">منابع</h5>
-
                 <!-- List -->
                 <ul class="list-unstyled list-py-1">
                     <li><a class="link-sm link-secondary" href="#"><i class="bi-question-circle-fill me-1"></i>
@@ -234,7 +202,6 @@
                         شما</a></li>
                 </ul>
                 <!-- End List -->
-
                 <!-- Button Group -->
                 <div class="btn-group">
                     <button type="button" class="btn btn-white btn-sm dropdown-toggle" id="footerSelectLanguage"
@@ -246,7 +213,6 @@
                                 <span>انگلیسی (US)</span>
                             </span>
                     </button>
-
                     <div class="dropdown-menu" aria-labelledby="footerSelectLanguage">
                         <a class="dropdown-item d-flex align-items-center active" href="#">
                             <img class="avatar avatar-xss avatar-circle ms-2"
@@ -279,9 +245,7 @@
             <!-- End Col -->
         </div>
         <!-- End Row -->
-
         <hr class="my-0">
-
         <div class="row align-items-sm-center content-space-1">
             <div class="col-sm mb-4 mb-sm-0">
                 <!-- Socials -->
@@ -291,19 +255,16 @@
                             <i class="bi-facebook"></i>
                         </a>
                     </li>
-
                     <li class="list-inline-item">
                         <a class="btn btn-soft-secondary btn-xs btn-icon" href="#">
                             <i class="bi-google"></i>
                         </a>
                     </li>
-
                     <li class="list-inline-item">
                         <a class="btn btn-soft-secondary btn-xs btn-icon" href="#">
                             <i class="bi-twitter"></i>
                         </a>
                     </li>
-
                     <li class="list-inline-item">
                         <a class="btn btn-soft-secondary btn-xs btn-icon" href="#">
                             <i class="bi-github"></i>
@@ -312,7 +273,6 @@
                 </ul>
                 <!-- End Socials -->
             </div>
-
             <div class="col-sm-auto">
                 <!-- List -->
                 <ul class="list-inline list-separator">
