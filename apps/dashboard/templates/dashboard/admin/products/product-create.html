@@ -1,7 +1,6 @@
 {% extends 'dashboard/admin/base.html' %}
 {% load static %}
 
-
 {% block extra_css %}
     <style>
         .small-primary-button {
@@ -27,9 +26,7 @@
             <li class="breadcrumb-item">حساب</li>
             <li class="breadcrumb-item">داشبورد ادمین</li>
             <li class="breadcrumb-item">محصولات</li>
-            <li class="breadcrumb-item active" aria-current="page">
-                ایجاد محصول
-            </li>
+            <li class="breadcrumb-item active" aria-current="page">ایجاد محصول</li>
         </ol>
     </nav>
 {% endblock %}
@@ -48,10 +45,9 @@
                         {{ form.title }}
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label>slug محصول -
-                            <button class="small-primary-button" type="button"
-                                    onclick="generateSlug()">ساخت slug
-                            </button>
+                        <label>
+                            slug محصول -
+                            <button class="small-primary-button" type="button" onclick="generateSlug()">ساخت slug</button>
                         </label>
                         {{ form.slug }}
                     </div>

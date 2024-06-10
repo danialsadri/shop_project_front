@@ -1,7 +1,6 @@
 {% extends 'dashboard/admin/base.html' %}
 {% load static %}
 
-
 {% block extra_css %}
     <style>
         .small-primary-button {
@@ -27,9 +26,7 @@
             <li class="breadcrumb-item">حساب</li>
             <li class="breadcrumb-item">داشبورد ادمین</li>
             <li class="breadcrumb-item">محصولات</li>
-            <li class="breadcrumb-item active" aria-current="page">
-                ویرایش محصول
-            </li>
+            <li class="breadcrumb-item active" aria-current="page">ویرایش محصول</li>
         </ol>
     </nav>
 {% endblock %}
@@ -42,8 +39,7 @@
                     <h5 class="card-header-title">ویرایش محصول</h5>
                     {% if object.is_published %}
                         <a class="btn btn-sm btn-primary" target="_blank"
-                           href="{% url 'shop:product-detail' slug=object.slug %}">نمایش
-                            محصول</a>
+                           href="{% url 'shop:product-detail' slug=object.slug %}">نمایش محصول</a>
                     {% endif %}
                 </div>
                 <form action="." method="post" enctype="multipart/form-data">
@@ -55,11 +51,9 @@
                                 {{ form.title }}
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label>slug محصول -
-                                    <button class="small-primary-button" type="button"
-                                            onclick="generateSlug()">ساخت
-                                        slug
-                                    </button>
+                                <label>
+                                    slug محصول -
+                                    <button class="small-primary-button" type="button" onclick="generateSlug()">ساخت slug</button>
                                 </label>
                                 {{ form.slug }}
                             </div>
@@ -67,7 +61,6 @@
                                 <label>تعداد</label>
                                 {{ form.stock }}
                             </div>
-
                             <div class="col-md-6 mb-3">
                                 <label>وضعیت</label>
                                 {{ form.status }}
@@ -84,7 +77,6 @@
                                 <label>درصد تخفیف</label>
                                 {{ form.discount_percent }}
                             </div>
-
                             <div class="col-md-12 mb-3">
                                 <label>توضیح کوتاه</label>
                                 {{ form.brief_description }}
@@ -93,7 +85,6 @@
                                 <label>توضیحات</label>
                                 {{ form.description }}
                             </div>
-
                             <div class="col-md-12 mb-3">
                                 <label for="validationValidFileInput1">تصویر محصول</label>
                                 {{ form.image }}
@@ -101,8 +92,7 @@
                         </div>
                         <div class="card-footer">
                             <div class=" d-flex pt-5 justify-content-end">
-                                <a class="btn btn-danger ms-3"
-                                   href="{% url 'dashboard:admin:product-delete' pk=object.pk %}">حذف</a>
+                                <a class="btn btn-danger ms-3" href="{% url 'dashboard:admin:product-delete' pk=object.pk %}">حذف</a>
                                 <a class="btn btn-secondary ms-3" href="{% url 'dashboard:admin:product-list' %}">بازگشت</a>
                                 <button class="btn btn-primary ms-3" type="submit">ثبت تغییرات</button>
                             </div>
@@ -115,8 +105,7 @@
                 <div class="card-header border-bottom d-flex justify-content-between align-items-center">
                     <h5 class="card-header-title">ویرایش تصاویر بیشتر</h5>
                 </div>
-                <form action="{% url 'dashboard:admin:product-add-image' pk=object.pk %}" method="post"
-                      enctype="multipart/form-data">
+                <form action="{% url 'dashboard:admin:product-add-image' pk=object.pk %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="card-body">
                         <div class="row d-flex align-items-center">

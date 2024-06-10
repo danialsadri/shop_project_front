@@ -79,19 +79,20 @@
                             <tr>
                                 <th scope="row">{{ object.id }}</th>
                                 <td>{{ object.title }}</td>
-                                <td>{% for category in object.category.all %} {{ category.title }}
-                                    {% if not forloop.last %},{% endif %} {% endfor %}</td>
+                                <td>{% for category in object.category.all %} {{ category.title }}{% if not forloop.last %},{% endif %} {% endfor %}</td>
                                 <td>{{ object.price }}</td>
                                 <td>{{ object.stock }}</td>
-                                <td> {% if object.is_published %}<span class="badge bg-success">نشر شده</span>
-                                {% else %}
-                                    <span class="badge bg-danger">ذخیره</span> {% endif %}
+                                <td>
+                                    {% if object.is_published %}
+                                        <span class="badge bg-success">نشر شده</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">ذخیره</span>
+                                    {% endif %}
                                 </td>
                                 <td>%{{ object.discount_percent }}</td>
                                 <td class="d-flex">
                                     <a class="btn btn-sm btn-icon btn-ghost-secondary"
                                        href="{% url 'dashboard:admin:product-edit' pk=object.pk %}"><i class="bi-pencil-square"></i></a>
-
                                     {% if object.is_published %}
                                         <a class="btn btn-sm btn-icon btn-ghost-primary" target="_blank"
                                            href="{% url 'shop:product-detail' slug=object.slug %}"><i class="bi-eye"></i></a>

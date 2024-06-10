@@ -94,17 +94,14 @@ class AdminProductAddImageView(LoginRequiredMixin, HasAdminAccessPermission, Cre
         return ProductImageModel.objects.filter(product__id=self.kwargs.get('pk'))
 
     def form_valid(self, form):
-        form.instance.product = ProductModel.objects.get(
-            pk=self.kwargs.get('pk'))
+        form.instance.product = ProductModel.objects.get(pk=self.kwargs.get('pk'))
         # handle successful form submission
-        messages.success(
-            self.request, 'تصویر مورد نظر با موفقیت ثبت شد')
+        messages.success(self.request, 'تصویر مورد نظر با موفقیت ثبت شد')
         return super().form_valid(form)
 
     def form_invalid(self, form):
         # handle unsuccessful form submission
-        messages.error(
-            self.request, 'اشکالی در ارسال تصویر رخ داد لطفا مجدد امتحان نمایید')
+        messages.error(self.request, 'اشکالی در ارسال تصویر رخ داد لطفا مجدد امتحان نمایید')
         return redirect(reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')}))
 
 
@@ -122,6 +119,5 @@ class AdminProductRemoveImageView(LoginRequiredMixin, HasAdminAccessPermission, 
         return reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')})
 
     def form_invalid(self, form):
-        messages.error(
-            self.request, 'اشکالی در حذف تصویر رخ داد لطفا مجدد امتحان نمایید')
+        messages.error(self.request, 'اشکالی در حذف تصویر رخ داد لطفا مجدد امتحان نمایید')
         return redirect(reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')}))
