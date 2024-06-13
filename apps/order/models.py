@@ -10,44 +10,10 @@ class OrderStatusType(models.IntegerChoices):
     failed = 3, "لغو شده"
 
 
-class UserAddressModel(BaseModel):
-    user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, verbose_name='کاربر')
-    address = models.CharField(max_length=250, verbose_name='آدرس')
-    state = models.CharField(max_length=50, verbose_name='استان')
-    city = models.CharField(max_length=50, verbose_name='شهر')
-    zip_code = models.CharField(max_length=50, verbose_name='کد پستی')
-
-    class Meta:
-        ordering = ['-created_date']
-        indexes = [models.Index(fields=['-created_date'])]
-        verbose_name = 'آدرس'
-        verbose_name_plural = 'آدرس ها'
-
-    def __str__(self):
-        return self.user.email
-
-
-class CouponModel(BaseModel):
-    used_by = models.ManyToManyField('accounts.User', related_name="coupon_users", blank=True, verbose_name='استفاده شده توسط')
-    code = models.CharField(max_length=100, verbose_name='کد')
-    discount_percent = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)], verbose_name='درصد تخفیف')
-    max_limit_usage = models.PositiveIntegerField(default=10, verbose_name='حداکثر میزان استفاده')
-    expiration_date = models.DateTimeField(null=True, blank=True, verbose_name='تاریخ انقضا')
-
-    class Meta:
-        ordering = ['-created_date']
-        indexes = [models.Index(fields=['-created_date'])]
-        verbose_name = 'کوپن'
-        verbose_name_plural = 'کوپن ها'
-
-    def __str__(self):
-        return self.code
-
-
 class OrderModel(BaseModel):
     user = models.ForeignKey('accounts.User', on_delete=models.PROTECT, verbose_name='کاربر')
     payment = models.ForeignKey('payment.PaymentModel', on_delete=models.SET_NULL, null=True, blank=True, verbose_name='پرداخت')
-    coupon = models.ForeignKey(CouponModel, on_delete=models.PROTECT, null=True, blank=True, verbose_name='کوپن')
+    coupon = models.ForeignKey('CouponModel', on_delete=models.PROTECT, null=True, blank=True, verbose_name='کوپن')
     address = models.CharField(max_length=250, verbose_name='آدرس')
     state = models.CharField(max_length=50, verbose_name='استان')
     city = models.CharField(max_length=50, verbose_name='شهر')
@@ -102,3 +68,37 @@ class OrderItemModel(BaseModel):
 
     def __str__(self):
         return f"{self.product.title} - {self.order.id}"
+
+
+class UserAddressModel(BaseModel):
+    user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, verbose_name='کاربر')
+    address = models.CharField(max_length=250, verbose_name='آدرس')
+    state = models.CharField(max_length=50, verbose_name='استان')
+    city = models.CharField(max_length=50, verbose_name='شهر')
+    zip_code = models.CharField(max_length=50, verbose_name='کد پستی')
+
+    class Meta:
+        ordering = ['-created_date']
+        indexes = [models.Index(fields=['-created_date'])]
+        verbose_name = 'آدرس'
+        verbose_name_plural = 'آدرس ها'
+
+    def __str__(self):
+        return self.user.email
+
+
+class CouponModel(BaseModel):
+    used_by = models.ManyToManyField('accounts.User', related_name="coupon_users", blank=True, verbose_name='استفاده شده توسط')
+    code = models.CharField(max_length=100, verbose_name='کد')
+    discount_percent = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)], verbose_name='درصد تخفیف')
+    max_limit_usage = models.PositiveIntegerField(default=10, verbose_name='حداکثر میزان استفاده')
+    expiration_date = models.DateTimeField(null=True, blank=True, verbose_name='تاریخ انقضا')
+
+    class Meta:
+        ordering = ['-created_date']
+        indexes = [models.Index(fields=['-created_date'])]
+        verbose_name = 'کوپن'
+        verbose_name_plural = 'کوپن ها'
+
+    def __str__(self):
+        return self.code

@@ -20,6 +20,15 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
     form_class = CheckOutForm
     success_url = reverse_lazy('order:completed')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        cart = CartModel.objects.get(user=self.request.user)
+        context["addresses"] = UserAddressModel.objects.filter(user=self.request.user)
+        total_price = cart.calculate_total_price()
+        context["total_price"] = total_price
+        context["total_tax"] = round((total_price * 9) / 100)
+        return context
+
     def get_form_kwargs(self):
         kwargs = super(OrderCheckOutView, self).get_form_kwargs()
         kwargs['request'] = self.request
@@ -42,12 +51,15 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
         order.save()
         return redirect(self.create_payment_url(order))
 
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
     def create_payment_url(self, order):
         zarinpal = ZarinPalSandbox()
         response = zarinpal.payment_request(order.get_price())
         payment_obj = PaymentModel.objects.create(
             authority_id=response.get("Authority"),
-            amount=order.get_price(),
+            amount=order.get_price()
         )
         order.payment = payment_obj
         order.save()
@@ -85,18 +97,6 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
             coupon.save()
         order.total_price = total_price
 
-    def form_invalid(self, form):
-        return super().form_invalid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        cart = CartModel.objects.get(user=self.request.user)
-        context["addresses"] = UserAddressModel.objects.filter(user=self.request.user)
-        total_price = cart.calculate_total_price()
-        context["total_price"] = total_price
-        context["total_tax"] = round((total_price * 9) / 100)
-        return context
-
 
 class OrderCompletedView(LoginRequiredMixin, HasCustomerAccessPermission, TemplateView):
     template_name = "order/completed.html"
@@ -122,18 +122,13 @@ class ValidateCouponView(LoginRequiredMixin, HasCustomerAccessPermission, View):
         else:
             if coupon.used_by.count() >= coupon.max_limit_usage:
                 status_code, message = 403, "محدودیت در تعداد استفاده"
-
             elif coupon.expiration_date and coupon.expiration_date < timezone.now():
                 status_code, message = 403, "کد تخفیف منقضی شده است"
-
             elif user in coupon.used_by.all():
                 status_code, message = 403, "این کد تخفیف قبلا توسط شما استفاده شده است"
-
             else:
                 cart = CartModel.objects.get(user=self.request.user)
-
                 total_price = cart.calculate_total_price()
-                total_price = round(
-                    total_price - (total_price * (coupon.discount_percent / 100)))
+                total_price = round(total_price - (total_price * (coupon.discount_percent / 100)))
                 total_tax = round((total_price * 9) / 100)
         return JsonResponse({"message": message, "total_tax": total_tax, "total_price": total_price}, status=status_code)
