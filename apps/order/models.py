@@ -30,6 +30,10 @@ class OrderModel(BaseModel):
     def __str__(self):
         return f"{self.user.email} - {self.id}"
 
+    @property
+    def is_successful(self):
+        return self.status == OrderStatusType.success.value
+
     def calculate_total_price(self):
         return sum(item.price * item.quantity for item in self.order_items.all())
 
@@ -42,10 +46,6 @@ class OrderModel(BaseModel):
 
     def get_full_address(self):
         return f"{self.state},{self.city},{self.address}"
-
-    @property
-    def is_successful(self):
-        return self.status == OrderStatusType.success.value
 
     def get_price(self):
         if self.coupon:
