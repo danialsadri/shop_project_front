@@ -27,9 +27,3 @@ class BaseModel(models.Model):
     def is_exist(cls, *args, **kwargs):
         obj = cls.objects.filter(*args, **kwargs)
         return obj.exists(), obj.first()
-
-    def get_created_date(self):
-        return date2jalali(self.created_date)
-
-    def get_created_time(self):
-        return datetime2jalali(self.created_date).strftime('%H:%M')
