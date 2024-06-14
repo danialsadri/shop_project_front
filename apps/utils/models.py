@@ -1,5 +1,6 @@
 from django.db import models
 from django.http import Http404
+from jalali_date import datetime2jalali, date2jalali
 
 
 class BaseModel(models.Model):
@@ -26,3 +27,9 @@ class BaseModel(models.Model):
     def is_exist(cls, *args, **kwargs):
         obj = cls.objects.filter(*args, **kwargs)
         return obj.exists(), obj.first()
+
+    def get_created_date(self):
+        return date2jalali(self.created_date)
+
+    def get_created_time(self):
+        return datetime2jalali(self.created_date).strftime('%H:%M')

@@ -25,6 +25,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'django_celery_beat',
     'django_render_partial',
+    'jalali_date',
 ]
 
 INSTALLED_APPS = [
@@ -129,51 +130,6 @@ LOGGING = {
     },
 }
 
-LANGUAGE_CODE = 'fa-ir'
-TIME_ZONE = 'Asia/Tehran'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
-
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
-STATICFILES_DIRS = [BASE_DIR / 'staticfiles']
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-ROOT_URLCONF = 'config.urls'
-WSGI_APPLICATION = 'config.wsgi.application'
-
-AUTH_USER_MODEL = 'accounts.User'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-
-EMAIL_BACKEND = config("EMAIL_BACKEND", cast=str)
-EMAIL_HOST = config("EMAIL_HOST", cast=str)
-EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool)
-EMAIL_USE_SSL = config("EMAIL_USE_SSL", cast=bool)
-EMAIL_PORT = config("EMAIL_PORT", cast=int)
-EMAIL_HOST_USER = config("EMAIL_HOST_USER", cast=str)
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", cast=str)
-
-SHOW_DEBUGGER_TOOLBAR = config("SHOW_DEBUGGER_TOOLBAR", cast=bool)
-if SHOW_DEBUGGER_TOOLBAR:
-    INSTALLED_APPS += ["debug_toolbar"]
-    MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
-    import socket  # only if you haven't already imported this
-
-    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
-
-MERCHANT_ID = config("MERCHANT_ID", cast=str)
-SANDBOX_MODE = config("SANDBOX_MODE", cast=bool)
-
-SITE_ID = 1
-
-CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
-CELERY_RESULT_BACKEND = 'rpc://'
-
 JAZZMIN_SETTINGS = {
     "site_title": "پنل مدیریت",
     "site_header": "پنل مدیریت",
@@ -253,3 +209,74 @@ JAZZMIN_UI_TWEAKS = {
         "success": "btn-success"
     }
 }
+
+JALALI_DATE_DEFAULTS = {
+    # if change it to true then all dates of the list_display will convert to the Jalali.
+    'LIST_DISPLAY_AUTO_CONVERT': False,
+    'Strftime': {
+        'date': '%y/%m/%d',
+        'datetime': '%H:%M:%S _ %Y/%m/%d',
+    },
+    'Static': {
+        'js': [
+            # loading datepicker
+            'admin/js/django_jalali.min.js',
+            # OR
+            # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.core.js',
+            # 'admin/jquery.ui.datepicker.jalali/scripts/calendar.js',
+            # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.datepicker-cc.js',
+            # 'admin/jquery.ui.datepicker.jalali/scripts/jquery.ui.datepicker-cc-fa.js',
+            # 'admin/js/main.js',
+        ],
+        'css': {
+            'all': [
+                'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css',
+            ]
+        }
+    },
+}
+
+LANGUAGE_CODE = 'fa-ir'
+TIME_ZONE = 'Asia/Tehran'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_DIRS = [BASE_DIR / 'staticfiles']
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+ROOT_URLCONF = 'config.urls'
+WSGI_APPLICATION = 'config.wsgi.application'
+
+AUTH_USER_MODEL = 'accounts.User'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = config("EMAIL_BACKEND", cast=str)
+EMAIL_HOST = config("EMAIL_HOST", cast=str)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool)
+EMAIL_USE_SSL = config("EMAIL_USE_SSL", cast=bool)
+EMAIL_PORT = config("EMAIL_PORT", cast=int)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", cast=str)
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", cast=str)
+
+SHOW_DEBUGGER_TOOLBAR = config("SHOW_DEBUGGER_TOOLBAR", cast=bool)
+if SHOW_DEBUGGER_TOOLBAR:
+    INSTALLED_APPS += ["debug_toolbar"]
+    MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+    import socket  # only if you haven't already imported this
+
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
+
+MERCHANT_ID = config("MERCHANT_ID", cast=str)
+SANDBOX_MODE = config("SANDBOX_MODE", cast=bool)
+
+SITE_ID = 1
+
+CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
+CELERY_RESULT_BACKEND = 'rpc://'
