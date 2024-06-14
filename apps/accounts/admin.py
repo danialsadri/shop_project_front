@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.admin.models import LogEntry
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.sessions.models import Session
 from .models import Profile, User
@@ -52,3 +53,10 @@ class SessionAdmin(admin.ModelAdmin):
 
     list_display = ['session_key', '_session_data', 'expire_date']
     readonly_fields = ['_session_data']
+
+
+@admin.register(LogEntry)
+class LogEntryAdmin(admin.ModelAdmin):
+    list_display = ['user', 'content_type', 'action_time', 'action_flag']
+    list_filter = ['action_time']
+    search_fields = ['user__email']
