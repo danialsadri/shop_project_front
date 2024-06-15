@@ -7,6 +7,10 @@ SECRET_KEY = config('SECRET_KEY', cast=str)
 DEBUG = config('DEBUG', cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
 LOCAL_APPS = [
     'apps.website.apps.WebsiteConfig',
     'apps.dashboard.apps.DashboardConfig',
@@ -26,6 +30,7 @@ THIRD_PARTY_APPS = [
     'django_celery_beat',
     'django_render_partial',
     'jalali_date',
+    'corsheaders',
 ]
 
 INSTALLED_APPS = [
@@ -45,6 +50,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

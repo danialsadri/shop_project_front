@@ -11,6 +11,7 @@ click-repl==0.3.0
 cron-descriptor==1.4.3
 Django==5.0.6
 django-celery-beat==2.6.0
+django-cors-headers==4.3.1
 django-debug-toolbar==4.4.2
 django-filter==24.2
 django-jalali-date==1.1.2
