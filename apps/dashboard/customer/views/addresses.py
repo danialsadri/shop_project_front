@@ -13,13 +13,7 @@ class CustomerAddressListView(LoginRequiredMixin, HasCustomerAccessPermission, L
     template_name = "dashboard/customer/addresses/address-list.html"
 
     def get_queryset(self):
-        queryset = UserAddressModel.objects.filter(user=self.request.user)
-        if order_by := self.request.GET.get("order_by"):
-            try:
-                queryset = queryset.order_by(order_by)
-            except FieldError:
-                pass
-        return queryset
+        return UserAddressModel.objects.filter(user=self.request.user)
 
 
 class CustomerAddressCreateView(LoginRequiredMixin, HasCustomerAccessPermission, SuccessMessageMixin, CreateView):
@@ -32,8 +26,7 @@ class CustomerAddressCreateView(LoginRequiredMixin, HasCustomerAccessPermission,
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        super().form_valid(form)
-        return redirect(reverse_lazy("dashboard:customer:address-edit", kwargs={"pk": form.instance.pk}))
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy("dashboard:customer:address-list")
@@ -48,13 +41,15 @@ class CustomerAddressEditView(LoginRequiredMixin, HasCustomerAccessPermission, S
         return UserAddressModel.objects.filter(user=self.request.user)
 
     def get_success_url(self):
-        return reverse_lazy("dashboard:customer:address-edit", kwargs={"pk": self.get_object().pk})
+        return reverse_lazy("dashboard:customer:address-list")
 
 
 class CustomerAddressDeleteView(LoginRequiredMixin, HasCustomerAccessPermission, SuccessMessageMixin, DeleteView):
     template_name = "dashboard/customer/addresses/address-delete.html"
-    success_url = reverse_lazy("dashboard:customer:address-list")
     success_message = "حذف آدرس با موفقیت انجام شد"
 
     def get_queryset(self):
         return UserAddressModel.objects.filter(user=self.request.user)
+
+    def get_success_url(self):
+        return reverse_lazy("dashboard:customer:address-list")
