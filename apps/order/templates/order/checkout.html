@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-lg-8 mb-7 mb-lg-0">
                 <h4 class="mb-3">انتخاب آدرس </h4>
-                <form action="." method="post" id="checkout-form">
+                <form action="." method="post" id="checkout-form" novalidate>
                     {% csrf_token %}
                     <hr class="my-4">
                     <div class="d-grid gap-2">
@@ -14,7 +14,8 @@
                             <div class="form-check">
                                 <input type="radio" class="form-check-input" name="address_id" value="{{ address.id }}" required>
                                 <label class="form-check-label" for="address">
-                                    {{ address.state }},{{ address.city }},{{ address.address }} ,{{ address.zip_code }}</label>
+                                    {{ address.state }},{{ address.city }},{{ address.address }} ,{{ address.zip_code }}
+                                </label>
                             </div>
                         {% endfor %}
                         <div class="mt-3">
@@ -84,6 +85,7 @@
             formatPriceInToman(document.getElementById("total-price"))
             formatPriceInToman(document.getElementById("total-tax"))
         }
+
         function validateCoupon() {
             $.ajax({
                 url: "{%  url 'order:validate-coupon' %}",

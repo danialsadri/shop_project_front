@@ -13,20 +13,17 @@ class CheckOutForm(forms.Form):
 
     def clean_address_id(self):
         address_id = self.cleaned_data.get('address_id')
-        # Check if the address_id belongs to the requested user
-        user = self.request.user  # Assuming the user is available in the request object
         try:
-            address = UserAddressModel.objects.get(id=address_id, user=user)
+            address = UserAddressModel.objects.get(id=address_id, user=self.request.user)
         except UserAddressModel.DoesNotExist:
             raise forms.ValidationError("Invalid address for the requested user.")
         return address
 
     def clean_coupon(self):
         code = self.cleaned_data.get('coupon')
+        user = self.request.user
         if code == "":
             return None
-        # Check if the address_id belongs to the requested user
-        user = self.request.user  # Assuming the user is available in the request object
         coupon = None
         try:
             coupon = CouponModel.objects.get(code=code)

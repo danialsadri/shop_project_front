@@ -22,8 +22,8 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        cart = CartModel.objects.get(user=self.request.user)
         context["addresses"] = UserAddressModel.objects.filter(user=self.request.user)
+        cart = CartModel.objects.get(user=self.request.user)
         total_price = cart.calculate_total_price()
         context["total_price"] = total_price
         context["total_tax"] = round((total_price * 9) / 100)
@@ -36,13 +36,11 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
 
     def form_valid(self, form):
         user = self.request.user
-        cleaned_data = form.cleaned_data
-        address = cleaned_data['address_id']
-        coupon = cleaned_data['coupon']
+        address = form.cleaned_data['address_id']
+        coupon = form.cleaned_data['coupon']
 
         cart = CartModel.objects.get(user=user)
         order = self.create_order(address)
-
         self.create_order_items(order, cart)
         self.clear_cart(cart)
 
@@ -50,20 +48,6 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
         self.apply_coupon(coupon, order, user, total_price)
         order.save()
         return redirect(self.create_payment_url(order))
-
-    def form_invalid(self, form):
-        return super().form_invalid(form)
-
-    def create_payment_url(self, order):
-        zarinpal = ZarinPalSandbox()
-        response = zarinpal.payment_request(order.get_price())
-        payment_obj = PaymentModel.objects.create(
-            authority_id=response.get("Authority"),
-            amount=order.get_price()
-        )
-        order.payment = payment_obj
-        order.save()
-        return zarinpal.generate_payment_url(response.get("Authority"))
 
     def create_order(self, address):
         return OrderModel.objects.create(
@@ -96,6 +80,17 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
             coupon.used_by.add(user)
             coupon.save()
         order.total_price = total_price
+
+    def create_payment_url(self, order):
+        zarinpal = ZarinPalSandbox()
+        response = zarinpal.payment_request(order.get_price())
+        payment_obj = PaymentModel.objects.create(
+            authority_id=response.get("Authority"),
+            amount=order.get_price()
+        )
+        order.payment = payment_obj
+        order.save()
+        return zarinpal.generate_payment_url(response.get("Authority"))
 
 
 class OrderCompletedView(LoginRequiredMixin, HasCustomerAccessPermission, TemplateView):

@@ -5,15 +5,14 @@
     <div class="container content-space-3 content-space-lg-5">
         <div class="w-md-75 w-lg-50 text-center mx-md-auto">
             <div class="mb-5">
-                <img class="img-fluid" src="{% static '/svg/illustrations/oc-hi-five.svg' %}" alt="Image Description"
-                     style="width: 15rem;">
+                <img class="img-fluid" src="{% static '/svg/illustrations/oc-hi-five.svg' %}" alt="Image Description" style="width: 15rem;">
             </div>
             <div class="mb-5">
                 <h1 class="h2">سفارش شما تکمیل شد!</h1>
                 <p>از سفارش شما متشکریم! سفارش شما در حال پردازش است و ظرف 3 تا 6 ساعت تکمیل خواهد شد. پس از تکمیل سفارش شما
                     یک ایمیل تاییدیه دریافت خواهید کرد.</p>
             </div>
-            <a class="btn btn-primary btn-transition rounded-pill px-6" href="{% url 'shop:product-grid' %}">به خرید ادامه دهید</a>
+            <a class="btn btn-primary btn-transition rounded-pill px-6" href="{% url 'shop:product-list' %}">به خرید ادامه دهید</a>
         </div>
     </div>
     <div class="bg-light">
@@ -37,8 +36,7 @@
                             <button type="submit" class="btn btn-primary btn-lg rounded-pill">ثبت نام</button>
                         </div>
                     </form>
-                    <p class="small">می توانید در هر زمانی اشتراک خود را لغو کنید <a href="#">سیاست حفظ حریم خصوصی</a> ما را
-                        بخوانید</p>
+                    <p class="small">می توانید در هر زمانی اشتراک خود را لغو کنید <a href="#">سیاست حفظ حریم خصوصی</a> ما را بخوانید</p>
                 </div>
             </div>
         </div>
@@ -46,22 +44,22 @@
     <div class="container content-space-2">
         <div class="row">
             <div class="col text-center py-3">
-                <img class="avatar avatar-lg avatar-4x3" src="/assets/svg/brands/hollister-dark.svg" alt="Logo">
+                <img class="avatar avatar-lg avatar-4x3" src="{% static 'svg/brands/hollister-dark.svg' %}" alt="Logo">
             </div>
             <div class="col text-center py-3">
-                <img class="avatar avatar-lg avatar-4x3" src="/assets/svg/brands/levis-dark.svg" alt="Logo">
+                <img class="avatar avatar-lg avatar-4x3" src="{% static 'svg/brands/levis-dark.svg' %}" alt="Logo">
             </div>
             <div class="col text-center py-3">
-                <img class="avatar avatar-lg avatar-4x3" src="/assets/svg/brands/new-balance-dark.svg" alt="Logo">
+                <img class="avatar avatar-lg avatar-4x3" src="{% static 'svg/brands/new-balance-dark.svg' %}" alt="Logo">
             </div>
             <div class="col text-center py-3">
-                <img class="avatar avatar-lg avatar-4x3" src="/assets/svg/brands/puma-dark.svg" alt="Logo">
+                <img class="avatar avatar-lg avatar-4x3" src="{% static 'svg/brands/puma-dark.svg' %}" alt="Logo">
             </div>
             <div class="col text-center py-3">
-                <img class="avatar avatar-lg avatar-4x3" src="/assets/svg/brands/nike-dark.svg" alt="Logo">
+                <img class="avatar avatar-lg avatar-4x3" src="{% static 'svg/brands/nike-dark.svg' %}" alt="Logo">
             </div>
             <div class="col text-center py-3">
-                <img class="avatar avatar-lg avatar-4x3" src="/assets/svg/brands/tnf-dark.svg" alt="Logo">
+                <img class="avatar avatar-lg avatar-4x3" src="{% static 'svg/brands/tnf-dark.svg' %}" alt="Logo">
             </div>
         </div>
     </div>
