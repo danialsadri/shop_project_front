@@ -85,7 +85,6 @@
             formatPriceInToman(document.getElementById("total-price"))
             formatPriceInToman(document.getElementById("total-tax"))
         }
-
         function validateCoupon() {
             $.ajax({
                 url: "{%  url 'order:validate-coupon' %}",
@@ -104,7 +103,6 @@
                         }
                     }).showToast();
                     applyDiscount(response.total_price, response.total_tax)
-                    // do something with the response data
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(errorThrown);
@@ -115,7 +113,6 @@
                             background: "red",
                         }
                     }).showToast();
-                    // handle the error case
                 }
             });
         }
