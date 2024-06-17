@@ -6,11 +6,12 @@ from .models import CartModel, CartItemModel
 class CartModelAdmin(admin.ModelAdmin):
     list_display = ["user"]
     list_filter = ["created_date"]
-    raw_id_fields = ["user"]
+    search_fields = ["user__email"]
+    autocomplete_fields = ["user"]
 
 
 @admin.register(CartItemModel)
 class CartItemModelAdmin(admin.ModelAdmin):
     list_display = ["cart", "product", "quantity"]
     list_filter = ["created_date"]
-    raw_id_fields = ["cart", "product"]
+    autocomplete_fields = ["cart", "product"]

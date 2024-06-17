@@ -44,7 +44,7 @@ class CustomProfileAdmin(admin.ModelAdmin):
     list_display = ["user", "first_name", "last_name", "phone_number"]
     list_filter = ['created_date']
     search_fields = ["first_name", "last_name", "phone_number"]
-    raw_id_fields = ["user"]
+    autocomplete_fields = ["user"]
 
 
 @admin.register(Session)

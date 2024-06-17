@@ -9,7 +9,7 @@ class OrderItemModelInline(admin.StackedInline):
     extra = 0
     show_change_link = True
     classes = ['collapse']
-    raw_id_fields = ["order", "product"]
+    autocomplete_fields = ["order", "product"]
 
 
 @admin.register(OrderModel)
@@ -17,7 +17,7 @@ class OrderModelAdmin(admin.ModelAdmin):
     list_display = ["user", "total_price", "coupon", "status"]
     list_filter = ["created_date"]
     search_fields = ["user__email"]
-    raw_id_fields = ["user", "payment", "coupon"]
+    autocomplete_fields = ["user", "payment", "coupon"]
     inlines = [OrderItemModelInline]
 
 
@@ -25,8 +25,7 @@ class OrderModelAdmin(admin.ModelAdmin):
 class OrderItemModelAdmin(admin.ModelAdmin):
     list_display = ["order", "product", "quantity", "price"]
     list_filter = ["created_date"]
-    search_fields = ["order__user__email"]
-    raw_id_fields = ["order", "product"]
+    autocomplete_fields = ["order", "product"]
 
 
 @admin.register(UserAddressModel)
@@ -34,7 +33,7 @@ class UserAddressModelAdmin(admin.ModelAdmin):
     list_display = ["user", "state", "city", "zip_code"]
     list_filter = ['created_date']
     search_fields = ["user__email"]
-    raw_id_fields = ["user"]
+    autocomplete_fields = ["user"]
 
 
 @admin.register(CouponModel)
@@ -42,6 +41,7 @@ class CouponModelAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     list_display = ["code", "discount_percent", "max_limit_usage", "used_by_count", "get_expiration_date", "get_expiration_time"]
     list_filter = ["created_date"]
     search_fields = ["code"]
+    autocomplete_fields = ["used_by"]
 
     def used_by_count(self, obj):
         return obj.used_by.all().count()

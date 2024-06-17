@@ -15,7 +15,7 @@ class FooterLinkAdmin(admin.ModelAdmin):
     list_display = ['footer_link_box', 'title', 'url']
     list_filter = ['title']
     search_fields = ['title']
-    raw_id_fields = ['footer_link_box']
+    autocomplete_fields = ['footer_link_box']
 
 
 @admin.register(SliderModel)

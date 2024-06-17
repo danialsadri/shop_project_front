@@ -7,7 +7,7 @@ from jalali_date import datetime2jalali, date2jalali
 class ReviewModelAdmin(admin.ModelAdmin):
     list_display = ["user", "product", "rate", "status", "get_created_date", "get_created_time"]
     list_filter = ["created_date"]
-    raw_id_fields = ["user", "product"]
+    autocomplete_fields = ["user", "product"]
 
     @admin.display(description='تاریخ ایجاد')
     def get_created_date(self, obj):

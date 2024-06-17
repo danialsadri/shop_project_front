@@ -7,6 +7,7 @@ from jalali_date import datetime2jalali, date2jalali
 class PaymentModelAdmin(admin.ModelAdmin):
     list_display = ["authority_id", "amount", "response_code", "status", "get_created_date", "get_created_time"]
     list_filter = ["created_date"]
+    search_fields = ["status"]
 
     @admin.display(description='تاریخ ایجاد')
     def get_created_date(self, obj):

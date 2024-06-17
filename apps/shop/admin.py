@@ -7,8 +7,8 @@ from jalali_date import datetime2jalali, date2jalali
 class ProductModelAdmin(admin.ModelAdmin):
     list_display = ["title", "stock", "status", "price", "discount_percent", "get_created_date", "get_created_time"]
     list_filter = ["created_date"]
-    raw_id_fields = ["user"]
     search_fields = ["title"]
+    autocomplete_fields = ["user", 'category']
 
     @admin.display(description='تاریخ ایجاد')
     def get_created_date(self, obj):
@@ -31,10 +31,11 @@ class ProductImageModelAdmin(admin.ModelAdmin):
     list_display = ["product", "file"]
     list_filter = ["created_date"]
     raw_id_fields = ["product"]
+    autocomplete_fields = ["product"]
 
 
 @admin.register(WishlistProductModel)
 class WishlistProductModelAdmin(admin.ModelAdmin):
     list_display = ["user", "product"]
     list_filter = ["created_date"]
-    raw_id_fields = ["user", "product"]
+    autocomplete_fields = ["user", "product"]
