@@ -8,15 +8,11 @@ def get_domain():
     return Site.objects.get_current().domain
 
 
-def get_protocol():
-    return 'https' if getattr(settings, 'SECURE_SSL_REDIRECT', False) else 'http'
-
-
 class ZarinPalSandbox:
     _payment_request_url = "https://sandbox.zarinpal.com/pg/rest/WebGate/PaymentRequest.json"
     _payment_verify_url = "https://sandbox.zarinpal.com/pg/rest/WebGate/PaymentVerification.json"
     _payment_page_url = "https://sandbox.zarinpal.com/pg/StartPay/"
-    _callback_url = f"{get_protocol()}://{get_domain()}/payment/verify/"
+    _callback_url = f"{get_domain()}/payment/verify/"
 
     def __init__(self, merchant_id=settings.MERCHANT_ID):
         self.merchant_id = merchant_id
