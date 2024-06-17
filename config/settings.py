@@ -31,6 +31,7 @@ THIRD_PARTY_APPS = [
     'django_render_partial',
     'jalali_date',
     'corsheaders',
+    'rest_framework_tracking',
 ]
 
 INSTALLED_APPS = [

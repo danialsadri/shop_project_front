@@ -20,6 +20,7 @@ django-redis==5.4.0
 django-render-partial==0.4
 django-timezone-field==6.1.0
 djangorestframework==3.15.1
+drf-api-tracking==1.8.4
 Faker==25.3.0
 idna==3.7
 jalali_core==1.0.0
@@ -32,6 +33,7 @@ psycopg==3.1.19
 python-crontab==3.1.0
 python-dateutil==2.9.0.post0
 python-decouple==3.8
+pytz==2024.1
 redis==5.0.4
 requests==2.32.2
 six==1.16.0
