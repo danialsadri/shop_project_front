@@ -90,14 +90,6 @@ class OrderCheckOutView(LoginRequiredMixin, HasCustomerAccessPermission, FormVie
         return zarinpal.generate_payment_url(response.get("Authority"))
 
 
-class OrderCompletedView(LoginRequiredMixin, HasCustomerAccessPermission, TemplateView):
-    template_name = "order/completed.html"
-
-
-class OrderFailedView(LoginRequiredMixin, HasCustomerAccessPermission, TemplateView):
-    template_name = "order/failed.html"
-
-
 class ValidateCouponView(LoginRequiredMixin, HasCustomerAccessPermission, View):
 
     def post(self, request, *args, **kwargs):
@@ -124,3 +116,11 @@ class ValidateCouponView(LoginRequiredMixin, HasCustomerAccessPermission, View):
                 total_price = round(total_price - (total_price * (coupon.discount_percent / 100)))
                 total_tax = round((total_price * 9) / 100)
         return JsonResponse({"message": message, "total_tax": total_tax, "total_price": total_price}, status=status_code)
+
+
+class OrderCompletedView(LoginRequiredMixin, HasCustomerAccessPermission, TemplateView):
+    template_name = "order/completed.html"
+
+
+class OrderFailedView(LoginRequiredMixin, HasCustomerAccessPermission, TemplateView):
+    template_name = "order/failed.html"
