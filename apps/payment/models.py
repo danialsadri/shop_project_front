@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import JSONField
 from apps.utils.models import BaseModel
 
 
@@ -12,8 +11,8 @@ class PaymentStatusType(models.IntegerChoices):
 class PaymentModel(BaseModel):
     authority_id = models.CharField(max_length=255, verbose_name='شناسه مرجع')
     ref_id = models.BigIntegerField(null=True, blank=True, verbose_name='آیدی مرجع')
-    amount = models.DecimalField(default=0, max_digits=10, decimal_places=0, verbose_name='میزان')
-    response_json = JSONField(default=dict, verbose_name='پاسخ json')
+    amount = models.DecimalField(default=0, max_digits=10, decimal_places=0, verbose_name='قیمت')
+    response_json = models.JSONField(default=dict, verbose_name='پاسخ json')
     response_code = models.IntegerField(null=True, blank=True, verbose_name='کد پاسخ')
     status = models.IntegerField(choices=PaymentStatusType.choices, default=PaymentStatusType.pending.value, verbose_name='وضعیت')
 

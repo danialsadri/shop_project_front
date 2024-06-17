@@ -1,15 +1,14 @@
 import json
 import requests
 from django.conf import settings
+from django.contrib.sites.models import Site
 
 
 def get_domain():
-    from django.contrib.sites.models import Site
     return Site.objects.get_current().domain
 
 
 def get_protocol():
-    # Determine the protocol based on the SECURE_SSL_REDIRECT setting
     return 'https' if getattr(settings, 'SECURE_SSL_REDIRECT', False) else 'http'
 
 
@@ -17,7 +16,7 @@ class ZarinPalSandbox:
     _payment_request_url = "https://sandbox.zarinpal.com/pg/rest/WebGate/PaymentRequest.json"
     _payment_verify_url = "https://sandbox.zarinpal.com/pg/rest/WebGate/PaymentVerification.json"
     _payment_page_url = "https://sandbox.zarinpal.com/pg/StartPay/"
-    _callback_url = f"{get_protocol()}://{get_domain()}/payment/verify"
+    _callback_url = f"{get_protocol()}://{get_domain()}/payment/verify/"
 
     def __init__(self, merchant_id=settings.MERCHANT_ID):
         self.merchant_id = merchant_id
@@ -29,18 +28,30 @@ class ZarinPalSandbox:
             "CallbackURL": self._callback_url,
             "Description": description,
         }
-        headers = {'Content-Type': 'application/json'}
-        response = requests.post(self._payment_request_url, headers=headers, data=json.dumps(payload))
+        headers = {
+            'Content-Type': 'application/json',
+        }
+        response = requests.post(
+            self._payment_request_url,
+            headers=headers,
+            data=json.dumps(payload),
+        )
         return response.json()
 
     def payment_verify(self, amount, authority):
         payload = {
             "MerchantID": self.merchant_id,
             "Amount": amount,
-            "Authority": authority
+            "Authority": authority,
         }
-        headers = {'Content-Type': 'application/json'}
-        response = requests.post(self._payment_verify_url, headers=headers, data=json.dumps(payload))
+        headers = {
+            'Content-Type': 'application/json',
+        }
+        response = requests.post(
+            self._payment_verify_url,
+            headers=headers,
+            data=json.dumps(payload),
+        )
         return response.json()
 
     def generate_payment_url(self, authority):

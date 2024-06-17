@@ -18,18 +18,30 @@ class ZarinPalSandbox:
             "CallbackURL": self._callback_url,
             "Description": description,
         }
-        headers = {'Content-Type': 'application/json'}
-        response = requests.post(self._payment_request_url, headers=headers, data=json.dumps(payload))
+        headers = {
+            'Content-Type': 'application/json',
+        }
+        response = requests.post(
+            self._payment_request_url,
+            headers=headers,
+            data=json.dumps(payload),
+        )
         return response.json()
 
     def payment_verify(self, amount, authority):
         payload = {
             "MerchantID": self.merchant_id,
             "Amount": amount,
-            "Authority": authority
+            "Authority": authority,
         }
-        headers = {'Content-Type': 'application/json'}
-        response = requests.post(self._payment_verify_url, headers=headers, data=json.dumps(payload))
+        headers = {
+            'Content-Type': 'application/json',
+        }
+        response = requests.post(
+            self._payment_verify_url,
+            headers=headers,
+            data=json.dumps(payload),
+        )
         return response.json()
 
     def generate_payment_url(self, authority):
