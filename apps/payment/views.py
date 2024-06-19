@@ -18,8 +18,8 @@ class PaymentVerifyView(View):
         status_code = response["Status"]
         payment_obj.ref_id = ref_id
         payment_obj.response_code = status_code
-        payment_obj.status = PaymentStatusType.success.value if status_code in {100, 101} else PaymentStatusType.failed.value
         payment_obj.response_json = response
+        payment_obj.status = PaymentStatusType.success.value if status_code in {100, 101} else PaymentStatusType.failed.value
         payment_obj.save()
         order.status = OrderStatusType.success.value if status_code in {100, 101} else OrderStatusType.failed.value
         order.save()
