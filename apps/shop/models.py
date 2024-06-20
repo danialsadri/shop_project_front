@@ -84,3 +84,4 @@ class WishlistProductModel(BaseModel):
 
     def __str__(self):
         return self.product.title
+ 

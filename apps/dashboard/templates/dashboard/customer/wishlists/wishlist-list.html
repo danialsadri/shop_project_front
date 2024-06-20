@@ -6,9 +6,7 @@
         <ol class="breadcrumb breadcrumb-light mb-0">
             <li class="breadcrumb-item">حساب</li>
             <li class="breadcrumb-item"> داشبورد</li>
-            <li class="breadcrumb-item active" aria-current="page">
-                لیست علایق
-            </li>
+            <li class="breadcrumb-item active" aria-current="page">لیست علایق</li>
         </ol>
     </nav>
 {% endblock %}
@@ -30,19 +28,17 @@
                             <div class="flex-grow-1 ms-3">
                                 <div class="row">
                                     <div class="col-sm-7 mb-3 mb-sm-0">
-                                        <h5><a class="text-dark"
-                                               href="{% url 'shop:product-detail' slug=object.product.slug %}">{{ object.product.title }}</a></h5>
+                                        <h5><a class="text-dark" href="{% url 'shop:product-detail' slug=object.product.slug %}">
+                                            {{ object.product.title }}</a></h5>
                                         <div class="d-grid gap-1">
                                             <div class="text-body">
                                                 <span class="small">دسته بندی:</span>
                                                 <span class="fw-semibold small">
-                      {% for category in object.product.category.all %}
-                          <a class="link-sm link-secondary" href="#"> {{ category.title }} </a>
-                          {% if not forloop.last %}
-                              ,
-                          {% endif %}
-                      {% endfor %}
-                    </span>
+                                                    {% for category in object.product.category.all %}
+                                                        <a class="link-sm link-secondary" href="#">{{ category.title }}</a>
+                                                        {% if not forloop.last %}, {% endif %}
+                                                    {% endfor %}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -51,9 +47,7 @@
                                             <div class="d-grid gap-2">
                                                 <form action="{% url 'dashboard:customer:wishlist-delete' pk=object.pk %}" method="post">
                                                     {% csrf_token %}
-                                                    <button class="btn btn-outline-danger btn-sm" type="submit">
-                                                        <i class="bi-trash me-1"></i> حذف
-                                                    </button>
+                                                    <button class="btn btn-outline-danger btn-sm" type="submit"><i class="bi-trash me-1"></i>حذف</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -72,9 +66,7 @@
                         {% if page_obj.has_previous %}
                             <li class="page-item">
                                 <button class="page-link" onclick="changePage(`{{ page_obj.previous_page_number }}`)" aria-label="Previous">
-            <span aria-hidden="true">
-              <i class="bi-chevron-double-right small"></i>
-            </span>
+                                    <span aria-hidden="true"><i class="bi-chevron-double-right small"></i></span>
                                 </button>
                             </li>
                         {% endif %}
@@ -83,17 +75,13 @@
                             {% if page_obj.number == i %}
                                 <li class="page-item active"><a class="page-link">{{ i }}</a></li>
                             {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
-                                <li class="page-item">
-                                    <button class="page-link" onclick="changePage(`{{ i }}`)">{{ i }}</button>
-                                </li>
+                                <li class="page-item"><button class="page-link" onclick="changePage(`{{ i }}`)">{{ i }}</button></li>
                             {% endif %}
                         {% endfor %}
                         {% if page_obj.has_next %}
                             <li class="page-item">
                                 <button class="page-link" onclick="changePage(`{{ page_obj.next_page_number }}`)" aria-label="Previous">
-              <span aria-hidden="true">
-                <i class="bi-chevron-double-left small"></i>
-              </span>
+                                    <span aria-hidden="true"><i class="bi-chevron-double-left small"> </i></span>
                                 </button>
                             </li>
                         {% endif %}
@@ -101,6 +89,5 @@
                 </nav>
             {% endif %}
         </div>
-        <a class="card-footer card-link text-center border-top" href="#">به خرید ادامه دهید</a>
     </div>
 {% endblock %}
