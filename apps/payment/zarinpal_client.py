@@ -1,18 +1,13 @@
 import json
 import requests
 from django.conf import settings
-from django.contrib.sites.models import Site
-
-
-def get_domain():
-    return Site.objects.get_current().domain
 
 
 class ZarinPalSandbox:
     _payment_request_url = "https://sandbox.zarinpal.com/pg/rest/WebGate/PaymentRequest.json"
     _payment_verify_url = "https://sandbox.zarinpal.com/pg/rest/WebGate/PaymentVerification.json"
     _payment_page_url = "https://sandbox.zarinpal.com/pg/StartPay/"
-    _callback_url = f"{get_domain()}/payment/verify/"
+    _callback_url = f"http://localhost:8000/payment/verify/"
 
     def __init__(self, merchant_id=settings.MERCHANT_ID):
         self.merchant_id = merchant_id
