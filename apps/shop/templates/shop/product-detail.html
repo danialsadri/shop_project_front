@@ -3,282 +3,282 @@
 {% load shop_tags %}
 
 {% block content %}
-    <div class="container content-space-t-2 content-space-t-sm-3">
-        <div class="row">
-            <div class="col-md-7 mb-7 mb-md-0">
-                <div class="pe-md-4">
-                    <div class="card-pinned">
-                        <div class="js-swiper-shop-product swiper">
+<div class="container content-space-t-2 content-space-t-sm-3">
+    <div class="row">
+        <div class="col-md-7 mb-7 mb-md-0">
+            <div class="pe-md-4">
+                <div class="card-pinned">
+                    <div class="js-swiper-shop-product swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="card card-bordered shadow-none">
+                                    <img class="card-img" src="{{ object.image.url }}" alt="Image Description">
+                                </div>
+                            </div>
+                            {% for product_image in object.product_images.all %}
+                            <div class="swiper-slide">
+                                <div class="card card-bordered shadow-none">
+                                    <img class="card-img" src="{{ product_image.file.url }}" alt="Image Description">
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="js-swiper-shop-product-button-next swiper-button-next"></div>
+                        <div class="js-swiper-shop-product-button-prev swiper-button-prev"></div>
+                    </div>
+                    <div class="position-absolute bottom-0 end-0 start-0 zi-1 p-4">
+                        <div class="js-swiper-shop-product-thumb swiper" style="max-width: 15rem;">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
-                                    <div class="card card-bordered shadow-none">
-                                        <img class="card-img" src="{{ object.image.url }}" alt="Image Description">
-                                    </div>
+                                    <a class="avatar avatar-circle" href="javascript:;">
+                                        <img class="avatar-img" src="{{ object.image.url }}" alt="Image Description">
+                                    </a>
                                 </div>
                                 {% for product_image in object.product_images.all %}
-                                    <div class="swiper-slide">
-                                        <div class="card card-bordered shadow-none">
-                                            <img class="card-img" src="{{ product_image.file.url }}" alt="Image Description">
-                                        </div>
-                                    </div>
+                                <div class="swiper-slide">
+                                    <a class="avatar avatar-circle" href="javascript:;">
+                                        <img class="avatar-img" src="{{ product_image.file.url }}" alt="Image Description">
+                                    </a>
+                                </div>
                                 {% endfor %}
                             </div>
-                            <div class="js-swiper-shop-product-button-next swiper-button-next"></div>
-                            <div class="js-swiper-shop-product-button-prev swiper-button-prev"></div>
                         </div>
-                        <div class="position-absolute bottom-0 end-0 start-0 zi-1 p-4">
-                            <div class="js-swiper-shop-product-thumb swiper" style="max-width: 15rem;">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <a class="avatar avatar-circle" href="javascript:;">
-                                            <img class="avatar-img" src="{{ object.image.url }}" alt="Image Description">
-                                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="d-flex justify-content-between">
+                <a class="d-flex gap-1 mb-4" href="#reviewSection">
+                    {% for i in "12345" %}
+                        {% if i|add:0 <= object.avg_rate %}
+                            <span><i class="bi bi-star-fill star-rate"></i></span>
+                        {% else %}
+                            <span><i class="bi bi-star star-rate"></i></span>
+                        {% endif %}
+                    {% endfor %}
+                    <span class="ms-1">{{ object.avg_rate }}/5</span>
+                </a>
+                {% if request.user.is_authenticated %}
+                <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if is_wished %} active {% endif %}"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق" onclick="addToWishlist(this,`{{ object.id }}`)">
+                    <i class="bi-heart"></i>
+                </button>
+                {% endif %}
+            </div>
+            <div class="mb-5">
+                <h1 class="h2">{{ object.title }}</h1>
+                <p>
+                    {% for category in object.category.all %}
+                    <a href="#">{{ category.title }} </a> {% if not forloop.last %} ,{% endif %}
+                    {% endfor %}
+                </p>
+                <p>{{ object.brief_description }}</p>
+            </div>
+            <div class="mb-5">
+                <span class="d-block mb-2">قیمت کل:</span>
+                {% if object.is_discounted %}
+                <div class="d-flex align-items-center">
+                    <h3 class="mb-0 formatted-price">{{ object.get_price }} </h3>
+                    <span class="me-2 formatted-price text-decoration-line-through">{{ object.price }}</span>
+                </div>
+                {% else %}
+                <div class="d-flex align-items-center">
+                    <h3 class="mb-0 formatted-price">{{ object.price }} </h3>
+                </div>
+                {% endif %}
+            </div>
+            <div class="d-grid mb-4">
+                <button type="button" class="btn btn-primary btntransition"
+                        onclick="addToCart('{{ object.id }}')">افزودن به سبد خرید
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container content-space-t-2 content-space-md-3">
+    <div class="row">
+        {{ object.description|safe }}
+    </div>
+</div>
+{% show_similar_products object %}
+<div id="reviewSection" class="container content-space-b-2 content-space-b-lg-3">
+    <div class="row">
+        <div class="col-md-4 mb-7 mb-md-0">
+            <div class="border-bottom pb-4 mb-4">
+                <div class="card bg-primary mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <span class="display-4 text-white">{{ object.avg_rate }}</span>
+                                </div>
+                                <div class="flex-grow-1 me-3">
+                                    <div class="d-flex gap-1 small">
+                                        {% for i in "12345" %}
+                                            {% if i|add:0 <= object.avg_rate %}
+                                                <span><i class="bi bi-star-fill star-rate"></i></span>
+                                            {% else %}
+                                                <span><i class="bi bi-star star-rate"></i></span>
+                                            {% endif %}
+                                        {% endfor %}
                                     </div>
-                                    {% for product_image in object.product_images.all %}
-                                        <div class="swiper-slide">
-                                            <a class="avatar avatar-circle" href="javascript:;">
-                                                <img class="avatar-img" src="{{ product_image.file.url }}" alt="Image Description">
-                                            </a>
-                                        </div>
-                                    {% endfor %}
+                                    <span class="text-white">{{ reviews.count }} نظر</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-5">
-                <div class="d-flex justify-content-between">
-                    <a class="d-flex gap-1 mb-4" href="#reviewSection">
-                        {% for i in "12345" %}
-                            {% if i|add:0 <= object.avg_rate %}
-                                <span><i class="bi bi-star-fill star-rate"></i></span>
-                            {% else %}
-                                <span><i class="bi bi-star star-rate"></i></span>
-                            {% endif %}
-                        {% endfor %}
-                        <span class="ms-1">{{ object.avg_rate }}/5</span>
+                <h3>تجزیه رتبه</h3>
+                <div class="d-grid gap-1">
+                    <a class="row align-items-center" href="#" style="max-width: 25rem;">
+                        <div class="col-3"><span class="text-dark">5 ستاره</span></div>
+                        <div class="col-7">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{ reviews_avg.rate_5 }}%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-2 text-end">
+                            <span>{{ reviews_count.rate_5 }}</span>
+                        </div>
                     </a>
-                    {% if request.user.is_authenticated %}
-                        <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle {% if is_wished %} active {% endif %}"
-                                data-bs-toggle="tooltip" data-bs-placement="top" title="افزودن به علایق" onclick="addToWishlist(this,`{{ object.id }}`)">
-                            <i class="bi-heart"></i>
-                        </button>
-                    {% endif %}
-                </div>
-                <div class="mb-5">
-                    <h1 class="h2">{{ object.title }}</h1>
-                    <p>
-                        {% for category in object.category.all %}
-                            <a href="#">{{ category.title }} </a>
-                            {% if not forloop.last %} ,{% endif %}
-                        {% endfor %}
-                    </p>
-                    <p>{{ object.brief_description }}</p>
-                </div>
-                <div class="mb-5">
-                    <span class="d-block mb-2">قیمت کل:</span>
-                    {% if object.is_discounted %}
-                        <div class="d-flex align-items-center">
-                            <h3 class="mb-0 formatted-price">{{ object.get_price }} </h3>
-                            <span class="me-2 formatted-price text-decoration-line-through">{{ object.price }}</span>
+                    <a class="row align-items-center" href="#" style="max-width: 25rem;">
+                        <div class="col-3">
+                            <span class="text-dark">4 ستاره</span>
                         </div>
-                    {% else %}
-                        <div class="d-flex align-items-center">
-                            <h3 class="mb-0 formatted-price">{{ object.price }} </h3>
+                        <div class="col-7">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{ reviews_avg.rate_4 }}%;" aria-valuenow="53" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
                         </div>
-                    {% endif %}
-                </div>
-                <div class="d-grid mb-4">
-                    <button type="button" class="btn btn-primary btntransition"
-                            onclick="addToCart('{{ object.id }}')">افزودن به سبد خرید</button>
+                        <div class="col-2 text-end">
+                            <span>{{ reviews_count.rate_4 }}</span>
+                        </div>
+                    </a>
+                    <a class="row align-items-center" href="#" style="max-width: 25rem;">
+                        <div class="col-3">
+                            <span class="text-dark">3 ستاره</span>
+                        </div>
+                        <div class="col-7">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{ reviews_avg.rate_3 }}%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-2 text-end">
+                            <span>{{ reviews_count.rate_3 }}</span>
+                        </div>
+                    </a>
+                    <a class="row align-items-center" href="#" style="max-width: 25rem;">
+                        <div class="col-3">
+                            <span class="text-dark">2 ستاره</span>
+                        </div>
+                        <div class="col-7">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{ reviews_avg.rate_2 }}%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-2 text-end">
+                            <span>{{ reviews_count.rate_2 }}</span>
+                        </div>
+                    </a>
+                    <a class="row align-items-center" href="#" style="max-width: 25rem;">
+                        <div class="col-3">
+                            <span class="text-dark">1 ستاره</span>
+                        </div>
+                        <div class="col-7">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{ reviews_avg.rate_1 }}%;" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-2 text-end">
+                            <span>{{ reviews_count.rate_1 }}</span>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container content-space-t-2 content-space-md-3">
-        <div class="row">
-            {{ object.description|safe }}
-        </div>
-    </div>
-    {% show_similar_products object %}
-    <div id="reviewSection" class="container content-space-b-2 content-space-b-lg-3">
-        <div class="row">
-            <div class="col-md-4 mb-7 mb-md-0">
+        <div class="col-md-8">
+            <div class="ps-md-4">
                 <div class="border-bottom pb-4 mb-4">
-                    <div class="card bg-primary mb-3">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-center">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0">
-                                        <span class="display-4 text-white">{{ object.avg_rate }}</span>
-                                    </div>
-                                    <div class="flex-grow-1 me-3">
-                                        <div class="d-flex gap-1 small">
-                                            {% for i in "12345" %}
-                                                {% if i|add:0 <= object.avg_rate %} 
-                                                    <span><i class="bi bi-star-fill star-rate"></i></span>
-                                                {% else %}
-                                                    <span><i class="bi bi-star star-rate"></i></span>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </div>
-                                        <span class="text-white">{{ reviews.count }} نظر</span>
-                                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-sm mb-2 mb-sm-0">
+                            <h4 class="mb-0">دیدگاه ها</h4>
+                        </div>
+                        <div class="col-sm-auto mb-2 text-center">
+                            <button type="button" class="btn btn-primary btn-transition rounded-pill"
+                                    data-bs-toggle="modal" data-bs-target="#submitReviewModal">ثبت دیدگاه
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-comment list-comment-divider mb-5">
+                    <!-- Item -->
+                    {% for review in reviews %}
+                    <li class="list-comment-item">
+                        <div class="d-flex gap-1 mb-3">
+                            {% for i in "12345" %}
+                                {% if i|add:0 <= review.rate %}
+                                    <span><i class="bi bi-star-fill star-rate"></i></span>
+                                {% else %}
+                                    <span><i class="bi bi-star star-rate"></i></span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-shrink-0">
+                                <img class="avatar avatar-sm avatar-circle" src="{{ review.user.user_profile.image.url }}" alt="Image Description">
+                            </div>
+                            <div class="flex-grow-1 me-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">{{ review.user.user_profile.get_fullname }}</h5>
+                                    <span class="d-block small text-muted">{{ review.created_date|date:"Y-m-d h:i" }}</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <h3>تجزیه رتبه</h3>
-                    <div class="d-grid gap-1">
-                        <a class="row align-items-center" href="#" style="max-width: 25rem;">
-                            <div class="col-3"><span class="text-dark">5 ستاره</span></div>
-                            <div class="col-7">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: {{ reviews_avg.rate_5 }}%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="col-2 text-end">
-                                <span>{{ reviews_count.rate_5 }}</span>
-                            </div>
-                        </a>
-                        <a class="row align-items-center" href="#" style="max-width: 25rem;">
-                            <div class="col-3">
-                                <span class="text-dark">4 ستاره</span>
-                            </div>
-                            <div class="col-7">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: {{ reviews_avg.rate_4 }}%;" aria-valuenow="53" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="col-2 text-end">
-                                <span>{{ reviews_count.rate_4 }}</span>
-                            </div>
-                        </a>
-                        <a class="row align-items-center" href="#" style="max-width: 25rem;">
-                            <div class="col-3">
-                                <span class="text-dark">3 ستاره</span>
-                            </div>
-                            <div class="col-7">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: {{ reviews_avg.rate_3 }}%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="col-2 text-end">
-                                <span>{{ reviews_count.rate_3 }}</span>
-                            </div>
-                        </a>
-                        <a class="row align-items-center" href="#" style="max-width: 25rem;">
-                            <div class="col-3">
-                                <span class="text-dark">2 ستاره</span>
-                            </div>
-                            <div class="col-7">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: {{ reviews_avg.rate_2 }}%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="col-2 text-end">
-                                <span>{{ reviews_count.rate_2 }}</span>
-                            </div>
-                        </a>
-                        <a class="row align-items-center" href="#" style="max-width: 25rem;">
-                            <div class="col-3">
-                                <span class="text-dark">1 ستاره</span>
-                            </div>
-                            <div class="col-7">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: {{ reviews_avg.rate_1 }}%;" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="col-2 text-end">
-                                <span>{{ reviews_count.rate_1 }}</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="ps-md-4">
-                    <div class="border-bottom pb-4 mb-4">
-                        <div class="row align-items-center">
-                            <div class="col-sm mb-2 mb-sm-0">
-                                <h4 class="mb-0">دیدگاه ها</h4>
-                            </div>
-                            <div class="col-sm-auto mb-2 text-center">
-                                <button type="button" class="btn btn-primary btn-transition rounded-pill"
-                                        data-bs-toggle="modal" data-bs-target="#submitReviewModal">
-                                    ثبت دیدگاه
-                                </button>
-                            </div>
+                        <div class="mb-5">
+                            <p>{{ review.description }}</p>
                         </div>
-                    </div>
-                    <ul class="list-comment list-comment-divider mb-5">
-                        <!-- Item -->
-                        {% for review in reviews %}
-                            <li class="list-comment-item">
-                                <div class="d-flex gap-1 mb-3">
-                                    {% for i in "12345" %}
-                                        {% if i|add:0 <= review.rate %} <span><i class="bi bi-star-fill star-rate"></i></span>
-                                        {% else %}
-                                            <span><i class="bi bi-star star-rate"></i></span>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="flex-shrink-0">
-                                        <img class="avatar avatar-sm avatar-circle" src="{{ review.user.user_profile.image.url }}" alt="Image Description">
-                                    </div>
-                                    <div class="flex-grow-1 me-3">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <h5 class="mb-0">{{ review.user.user_profile.get_fullname }}</h5>
-                                            <span class="d-block small text-muted">{{ review.created_date|date:"Y-m-d h:i" }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-5">
-                                    <p>{{ review.description }}</p>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="submitReviewModal" tabindex="-1" aria-labelledby="submitReviewModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="submitReviewModalLabel">فرم ارسال دیدگاه</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{% url 'review:submit-review' %}" method="post" id="review-form">
-                        {% csrf_token %}
-                        <input hidden name="product" value="{{ object.id }}">
-                        <div class="row">
-                            <div class="mb-3">
-                                <label class="form-label" for="rateModalInput">امتیاز</label>
-                                <select class="form-select form-select-sm" name="rate" required>
-                                    <option value="1">1 ستاره</option>
-                                    <option value="2">2 ستاره</option>
-                                    <option value="3">3 ستاره</option>
-                                    <option value="4">4 ستاره</option>
-                                    <option value="5" selected>5 ستاره</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="descriptionModalInput">توضیحات</label>
-                                <textarea type="email" class="form-control form-control-lg" id="descriptionModalInput" name="description" required> </textarea>
-                            </div>
+</div>
+<div class="modal fade" id="submitReviewModal" tabindex="-1" aria-labelledby="submitReviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="submitReviewModalLabel">فرم ارسال دیدگاه</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'review:submit-review' %}" method="post" id="review-form">
+                    {% csrf_token %}
+                    <input hidden name="product" value="{{ object.id }}">
+                    <div class="row">
+                        <div class="mb-3">
+                            <label class="form-label" for="rateModalInput">امتیاز</label>
+                            <select class="form-select form-select-sm" name="rate" required>
+                                <option value="1">1 ستاره</option>
+                                <option value="2">2 ستاره</option>
+                                <option value="3">3 ستاره</option>
+                                <option value="4">4 ستاره</option>
+                                <option value="5" selected>5 ستاره</option>
+                            </select>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
-                    <button class="btn btn-primary" type="submit" form="review-form">ثبت دیدگاه</button>
-                </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="descriptionModalInput">توضیحات</label>
+                            <textarea type="text" class="form-control form-control-lg" id="descriptionModalInput" name="description" required> </textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                <button class="btn btn-primary" type="submit" form="review-form">ثبت دیدگاه</button>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

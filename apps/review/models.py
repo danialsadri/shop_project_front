@@ -19,8 +19,8 @@ class ReviewModel(BaseModel):
     class Meta:
         ordering = ['-created_date']
         indexes = [models.Index(fields=['-created_date'])]
-        verbose_name = 'بازدید'
-        verbose_name_plural = 'بازدید ها'
+        verbose_name = 'کامنت'
+        verbose_name_plural = 'کامنت ها'
 
     def __str__(self):
         return f"{self.user} - {self.product.id}"
